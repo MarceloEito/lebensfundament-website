@@ -1,0 +1,23 @@
+.location-banner {
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8555 100%);
+  padding: 2rem;
+  text-align: center;
+}
+
+.location-content h3 {
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.location-content p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .location-content h3 {
+    font-size: 1.1rem;
+  }
+}

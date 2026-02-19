@@ -1,0 +1,149 @@
+.expect-modern {
+  background: #f8f9fa;
+  padding: 6rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.expect-intro {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 5rem;
+}
+
+.section-title-large {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+  color: #1a1a1a;
+  letter-spacing: -2px;
+  line-height: 1.1;
+}
+
+.expect-lead {
+  font-size: 1.5rem;
+  color: #666666;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.expect-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.expect-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  padding: 3rem;
+  background: #ffffff;
+  border-radius: 30px;
+  border: 2px solid rgba(255, 107, 53, 0.1);
+  transition: all 0.4s ease;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.expect-block:hover {
+  border-color: rgba(255, 107, 53, 0.3);
+  transform: translateX(10px);
+  box-shadow: 0 10px 40px rgba(255, 107, 53, 0.1);
+}
+
+.expect-block.reverse {
+  grid-template-columns: 1fr 1fr;
+}
+
+.expect-block.reverse:hover {
+  transform: translateX(-10px);
+}
+
+.expect-block.reverse .expect-visual {
+  order: 2;
+}
+
+.expect-block.reverse .expect-text {
+  order: 1;
+}
+
+.expect-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.expect-icon-large {
+  font-size: 8rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+.expect-text h3 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  color: #1a1a1a;
+  position: relative;
+  display: inline-block;
+}
+
+.expect-text h3::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: #ff6b35;
+  border-radius: 2px;
+}
+
+.expect-text p {
+  font-size: 1.2rem;
+  color: #666666;
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@media (max-width: 968px) {
+  .expect-block,
+  .expect-block.reverse {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .expect-block.reverse .expect-visual,
+  .expect-block.reverse .expect-text {
+    order: initial;
+  }
+
+  .expect-icon-large {
+    font-size: 5rem;
+  }
+
+  .expect-text h3 {
+    font-size: 2rem;
+  }
+
+  .expect-text p {
+    font-size: 1.1rem;
+  }
+
+  .expect-block:hover,
+  .expect-block.reverse:hover {
+    transform: translateY(-10px);
+  }
+}

@@ -1,0 +1,145 @@
+.map-modern {
+  background: #0a0a0a;
+  position: relative;
+}
+
+.map-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 700px;
+}
+
+.map-info {
+  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 3rem;
+  position: relative;
+}
+
+.map-info::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  right: -10%;
+  width: 30%;
+  height: 60%;
+  background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(60px);
+}
+
+.map-info-content {
+  max-width: 500px;
+  position: relative;
+  z-index: 2;
+}
+
+.map-info h2 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  margin-bottom: 1rem;
+  color: #ffffff;
+  letter-spacing: -1px;
+}
+
+.map-intro {
+  font-size: 1.3rem;
+  color: #aaaaaa;
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+.location-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.location-card {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.location-card:hover {
+  background: rgba(255, 107, 53, 0.05);
+  border-color: rgba(255, 107, 53, 0.2);
+  transform: translateX(5px);
+}
+
+.location-icon {
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 107, 53, 0.1);
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.location-details h4 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.location-details p {
+  font-size: 1rem;
+  color: #aaaaaa;
+  margin: 0.2rem 0;
+}
+
+.route-btn {
+  background: #ff6b35;
+  color: #ffffff;
+  border: none;
+  padding: 1.2rem 2.5rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  width: 100%;
+}
+
+.route-btn:hover {
+  background: #ff8555;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+}
+
+.map-embed {
+  position: relative;
+  overflow: hidden;
+}
+
+.map-embed iframe {
+  filter: grayscale(20%) contrast(1.1);
+}
+
+@media (max-width: 968px) {
+  .map-split {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .map-info {
+    padding: 3rem 2rem;
+  }
+
+  .map-embed {
+    height: 400px;
+  }
+}
