@@ -1,112 +1,158 @@
-# Grace Community Church Website
+# Kirche Lebensfundament Website
 
-A modern, responsive church website built with React featuring contact forms and Google Maps integration.
+A modern, responsive website for Kirche Lebensfundament in Bruchmühlbach-Miesau, built with React.
 
-## Features
+![Logo](public/logo.jpeg)
 
-- Responsive design that works on all devices
-- Component-based architecture
-- Interactive navigation with active states
-- Service times display
-- Information cards for visitors
-- **Google Maps integration** showing church location in Bruchmühlbach-Miesau
-- **Contact form** with validation
-- Contact information section
-- Modern styling with CSS
+## 🎨 Features
 
-## Getting Started
+- ✅ **Modern Orange/White Design** - Colors from the church logo
+- ✅ **Fully Responsive** - Works on all devices
+- ✅ **Video Background** - Dynamic hero section
+- ✅ **Google Maps Integration** - Shows exact location
+- ✅ **Contact Form** - For inquiries and prayer requests
+- ✅ **Service Times** - Clear display of all events
+- ✅ **Smooth Animations** - Professional hover effects and transitions
 
-### Installation
+## 🚀 Technologies
+
+- React 18
+- CSS3 with modern features
+- Google Maps Embed API
+- Responsive Design (Mobile-First)
+
+## 📦 Installation
 
 ```bash
+# Clone repository
+git clone https://github.com/MarceloEito/lebensfundament-website.git
+
+# Change directory
+cd lebensfundament-website
+
+# Install dependencies
 npm install
-```
 
-### Running the Development Server
-
-```bash
+# Start development server
 npm start
 ```
 
-The site will open at [http://localhost:3000](http://localhost:3000)
+The website will automatically open at [http://localhost:3000](http://localhost:3000)
 
-### Building for Production
+## 🏗️ Build for Production
 
 ```bash
 npm run build
 ```
 
-## Project Structure
+Creates an optimized production build in the `build` folder.
+
+## 📂 Project Structure
 
 ```
-church-website-react/
+lebensfundament-website/
 ├── public/
-│   └── index.html
+│   ├── index.html
+│   └── logo.jpeg          # Church logo
 ├── src/
 │   ├── components/
-│   │   ├── Header.js & Header.css
-│   │   ├── Navigation.js & Navigation.css
-│   │   ├── Hero.js & Hero.css
-│   │   ├── ServiceTimes.js & ServiceTimes.css
-│   │   ├── WhatToExpect.js & WhatToExpect.css
-│   │   ├── MapSection.js & MapSection.css (Google Maps)
-│   │   ├── ContactForm.js & ContactForm.css (Contact Form)
-│   │   ├── Location.js & Location.css
-│   │   ├── Footer.js & Footer.css
+│   │   ├── Header.js      # Navigation & Logo
+│   │   ├── Hero.js        # Hero section with video
+│   │   ├── ServiceTimes.js # Service times
+│   │   ├── WhatToExpect.js # Info section
+│   │   ├── MapSection.js  # Google Maps
+│   │   ├── ContactForm.js # Contact form
+│   │   ├── Location.js    # Contact banner
+│   │   └── Footer.js      # Footer
 │   ├── App.js
-│   ├── App.css
-│   ├── index.js
-│   └── index.css
-├── package.json
-└── README.md
+│   └── index.js
+└── package.json
 ```
 
-## New Components
+## 🎨 Customization
 
-### MapSection
-- Integrated Google Maps showing Bruchmühlbach-Miesau location
-- Address details with parking and public transport information
-- Responsive map display
+### Change Colors
+Main colors are defined in CSS files:
+- **Orange**: `#ff6b35`
+- **White**: `#ffffff`
+- **Dark Gray**: `#1a1a1a`
 
-### ContactForm
-- Full contact form with validation
-- Multiple subject options (Visit, Prayer Request, Volunteer, etc.)
-- Success message on submission
-- Form fields: Name, Email, Phone, Subject, Message
+### Customize Content
+- **Service Times**: `src/components/ServiceTimes.js`
+- **Address**: `src/components/MapSection.js` and `Location.js`
+- **Contact Form Options**: `src/components/ContactForm.js`
 
-## Customization
+### Google Maps Location
+The map is already set to the correct address:
+- **Eichenhübel 14, 66892 Bruchmühlbach-Miesau, Germany**
 
-Update the following to match your church:
+## 🌐 Deployment
 
-- Church name in `Header.js`
-- Service times in `ServiceTimes.js`
-- Contact information in `Location.js` (already updated for Germany)
-- Map coordinates in `MapSection.js` (currently set to Bruchmühlbach-Miesau)
-- Navigation items in `Navigation.js`
-- Colors in CSS files (main color: #3498db)
+### Vercel (Recommended)
+```bash
+npm install -g vercel
+vercel
+```
 
-### Customizing the Map
+### Netlify
+```bash
+npm run build
+# Then upload the build folder to Netlify
+```
 
-To change the exact location on the map, update the coordinates in `MapSection.js`. You can:
-1. Go to Google Maps
-2. Find your exact location
-3. Right-click and copy the coordinates
-4. Update the embed URL in the component
+### GitHub Pages
+```bash
+npm install --save-dev gh-pages
 
-### Contact Form Backend
+# Add to package.json:
+"homepage": "https://marceloeito.github.io/lebensfundament-website",
+"scripts": {
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build"
+}
 
-The contact form currently logs to console. To make it functional:
-1. Set up a backend API endpoint
-2. Update the `handleSubmit` function in `ContactForm.js`
-3. Use services like EmailJS, FormSpree, or your own server
+npm run deploy
+```
 
-## Technologies
+## 🔒 Branch Protection
 
-- React 18
-- CSS3
-- Google Maps Embed API
-- React Scripts
+This repository uses Branch Protection Rules:
+- ❌ No direct pushing to `main`
+- ✅ All changes via Pull Requests
+- ✅ At least 1 approval required
 
-## Location
+### Workflow for Changes:
 
-Church address: Hauptstraße 45, 66892 Bruchmühlbach-Miesau, Germany
+```bash
+# Create new feature branch
+git checkout -b feature/my-change
+
+# Make changes and commit
+git add .
+git commit -m "Description of changes"
+
+# Push branch
+git push origin feature/my-change
+
+# Create Pull Request on GitHub
+```
+
+## 📱 Contact
+
+**Kirche Lebensfundament**
+- 📍 Eichenhübel 14, 66892 Bruchmühlbach-Miesau, Germany
+- 🕐 Sunday Service: 11:00 AM
+- 🙏 Prayer Meeting: Tuesday 6:30 PM
+- 🎸 Youth: Friday 7:00 PM
+
+## 📄 License
+
+This project is private and created for Kirche Lebensfundament.
+
+## 🙏 Credits
+
+Developed with ❤️ for Kirche Lebensfundament
+
+---
+
+**"Jesus ist unser Lebensfundament" - "Jesus is our life foundation"**
