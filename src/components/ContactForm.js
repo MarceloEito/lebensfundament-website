@@ -40,12 +40,12 @@ function ContactForm() {
   return (
     <section className="contact-modern" id="contact">
       <div className="container-modern">
-        <div className="contact-header">
+        <div className="contact-header" data-aos="fade-up">
           <h2>Kontaktiere uns</h2>
           <p>Hast du Fragen oder möchtest mehr erfahren? Wir sind für dich da!</p>
         </div>
 
-        <div className="contact-wrapper">
+        <div className="contact-wrapper" data-aos="fade-up">
           {submitted ? (
             <div className="success-modern">
               <div className="success-icon">✓</div>
@@ -125,9 +125,11 @@ function ContactForm() {
                 ></textarea>
               </div>
 
-              <button type="submit" className="submit-modern">
-                Nachricht senden
-              </button>
+              <div className="form-submit-wrap">
+                <button type="submit" className="btn btn-fill btn-lg" style={{ width: '100%' }}>
+                  Nachricht senden
+                </button>
+              </div>
             </form>
           )}
         </div>

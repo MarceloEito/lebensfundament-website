@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Hero.css';
 
 function Hero() {
@@ -18,12 +18,17 @@ function Hero() {
             onError={() => setVideoError(true)}
           >
             <source
-              src="https://cdn.pixabay.com/vimeo/394298939/city-24904.mp4?width=1280&hash=af186c9bb296f905b185b8f36c3498ab8a1123bc"
+              src="/videos/background.mp4"
               type="video/mp4"
             />
           </video>
         ) : (
-          <div className="hero-fallback-image"></div>
+          <div
+            className="hero-fallback-image"
+            style={{
+              backgroundImage: `url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1920&q=80')`
+            }}
+          ></div>
         )}
         <div className="video-overlay"></div>
       </div>
@@ -31,11 +36,11 @@ function Hero() {
       <div className="hero-content">
         <div className="hero-text">
           <p className="hero-subtitle">Willkommen bei</p>
-          <h1 className="hero-title">KIRCHE<br/>LEBENSFUNDAMENT</h1>
+          <h1 className="hero-title">LEBENSFUNDAMENT</h1>
           <p className="hero-motto">"Jesus ist unser Lebensfundament"</p>
           <div className="hero-buttons">
-            <button className="btn-primary">Gottesdienst besuchen</button>
-            <button className="btn-secondary">Mehr erfahren</button>
+            <a href="#services" className="btn btn-fill btn-lg">Gottesdienst besuchen</a>
+            <a href="#about" className="btn btn-outline btn-lg">Mehr erfahren</a>
           </div>
         </div>
       </div>
