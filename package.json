@@ -4,6 +4,7 @@
   "description": "Grace Community Church Website",
   "private": true,
   "dependencies": {
+    "aos": "^2.3.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1"
