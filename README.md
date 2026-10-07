@@ -16,7 +16,7 @@ A modern, responsive website for Kirche Lebensfundament in Bruchmühlbach-Miesau
 
 ## 🚀 Technologies
 
-- React 18 (Create React App)
+- React 18 with [Vite](https://vite.dev) (requires Node.js 20.19+ or 22.12+)
 - Plain CSS with design tokens (CSS custom properties)
 - [AOS](https://michalsnik.github.io/aos/) for scroll animations
 - Fonts: EB Garamond (headings) and Inter (body text) via Google Fonts
@@ -36,7 +36,7 @@ npm ci
 npm start
 ```
 
-The website opens automatically at [http://localhost:3000](http://localhost:3000).
+The website opens automatically at [http://localhost:3000](http://localhost:3000) and reloads on every change.
 
 ## 🏗️ Build for Production
 
@@ -44,14 +44,15 @@ The website opens automatically at [http://localhost:3000](http://localhost:3000
 npm run build
 ```
 
-Creates an optimized production build in the `build` folder.
+Creates an optimized production build in the `build` folder. `npm run preview` serves that build locally for a final check.
+
+The Content-Security-Policy is defined in `vite.config.js` and only added to the production build.
 
 ## 📂 Project Structure
 
 ```
 lebensfundament-website/
 ├── public/
-│   ├── index.html              # HTML shell, fonts, Content-Security-Policy
 │   ├── impressum/index.html    # Impressum (static page)
 │   ├── datenschutz/index.html  # Datenschutzerklärung (static page)
 │   ├── legal.css               # Shared styles for the legal pages
@@ -60,17 +61,19 @@ lebensfundament-website/
 │   └── *.jpg                   # Church photos and posters (not used yet)
 ├── src/
 │   ├── components/
-│   │   ├── Header.js           # Logo, navigation, mobile menu
-│   │   ├── Hero.js             # Video hero with info bar
-│   │   ├── WhatToExpect.js     # "Über uns" section
-│   │   ├── Events.js           # Regular services + upcoming events
-│   │   ├── MapSection.js       # "Besuche uns": address, parking, train station
-│   │   ├── ContactForm.js      # Contact form (FormSubmit)
-│   │   ├── Location.js         # Address banner
-│   │   └── Footer.js           # Footer with legal links
+│   │   ├── Header.jsx          # Logo, navigation, mobile menu
+│   │   ├── Hero.jsx            # Video hero with info bar
+│   │   ├── WhatToExpect.jsx    # "Über uns" section
+│   │   ├── Events.jsx          # Regular services + upcoming events
+│   │   ├── MapSection.jsx      # "Besuche uns": address, parking, train station
+│   │   ├── ContactForm.jsx     # Contact form (FormSubmit)
+│   │   ├── Location.jsx        # Address banner
+│   │   └── Footer.jsx          # Footer with legal links
 │   ├── index.css               # Design tokens and shared styles
-│   ├── App.js
-│   └── index.js
+│   ├── App.jsx
+│   └── index.jsx
+├── index.html                  # HTML shell, fonts, share preview tags
+├── vite.config.js              # Build config incl. Content-Security-Policy
 └── package.json
 ```
 
@@ -83,10 +86,10 @@ All colors, fonts, shadows and spacing are defined once as CSS variables at the 
 - **Heading font**: `--font-heading` and `--font-heading-weight`
 
 ### Content
-- **Regular services and upcoming events**: `src/components/Events.js` (upcoming events are placeholders for now)
-- **Service times in the footer**: `src/components/Footer.js`
-- **Address, parking and station maps**: `src/components/MapSection.js`
-- **Contact form recipient**: `FORM_ENDPOINT` in `src/components/ContactForm.js`
+- **Regular services and upcoming events**: `src/components/Events.jsx` (upcoming events are placeholders for now)
+- **Service times in the footer**: `src/components/Footer.jsx`
+- **Address, parking and station maps**: `src/components/MapSection.jsx`
+- **Contact form recipient**: `FORM_ENDPOINT` in `src/components/ContactForm.jsx`
 - **Hero video**: replace `public/videos/background.mp4` (and `background-poster.jpg`)
 
 ### Contact form
