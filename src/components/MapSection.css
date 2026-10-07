@@ -36,47 +36,6 @@
   z-index: 2;
 }
 
-/* Map Tabs */
-.map-tabs {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.map-tab-btn {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.8rem 1.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: var(--radius-md);
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 500;
-  color: #ffffff;
-  cursor: pointer;
-  transition: background var(--transition-base), border-color var(--transition-base);
-}
-
-.map-tab-btn:hover {
-  background: rgba(171, 77, 19, 0.2);
-  border-color: rgba(171, 77, 19, 0.5);
-}
-
-.map-tab-btn.active {
-  background: var(--color-orange);
-  border-color: var(--color-orange);
-  box-shadow: var(--shadow-btn);
-}
-
-.map-tab-btn .tab-icon svg {
-  width: 18px;
-  height: 18px;
-}
-
 .map-info h2 {
   font-family: var(--font-heading);
   font-size: clamp(2.5rem, 5vw, 4rem);

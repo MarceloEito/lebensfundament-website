@@ -182,83 +182,11 @@ code {
   transform: translateY(-2px);
 }
 
-.btn-ghost {
-  background: transparent;
-  color: var(--color-orange);
-  border-color: transparent;
-}
-
-.btn-ghost:hover {
-  background: var(--color-orange-tint-2);
-  color: var(--color-orange);
-}
-
-.btn-sm {
-  padding: 0.6rem 1.5rem;
-  font-size: 0.9rem;
-}
-
 .btn-lg {
   padding: 1.15rem 3rem;
   font-size: 1.1rem;
   letter-spacing: 1px;
   text-transform: uppercase;
-}
-
-/* ---- Consolidated card utility ---- */
-.card {
-  background: var(--color-orange-tint-1);
-  border-radius: var(--radius-lg);
-  border: var(--border-card);
-  box-shadow: var(--shadow-card);
-  transition: transform var(--transition-smooth),
-              box-shadow var(--transition-smooth),
-              border-color var(--transition-smooth);
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-card-hover);
-  border: var(--border-card-hover);
-}
-
-/* ---- Accent line ---- */
-.accent-line {
-  display: block;
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(90deg, var(--color-orange), var(--color-orange-light));
-  border-radius: 2px;
-  margin: 1rem auto 0;
-}
-
-/* ---- Shared section typography ---- */
-.section-eyebrow {
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--color-orange);
-  margin-bottom: 0.75rem;
-}
-
-.section-heading {
-  font-family: var(--font-heading);
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: var(--font-heading-weight);
-  color: var(--color-text-primary);
-  letter-spacing: -0.5px;
-  line-height: 1.15;
-}
-
-.section-subheading {
-  font-family: var(--font-body);
-  font-size: 1.15rem;
-  color: var(--color-text-secondary);
-  font-weight: 300;
-  line-height: 1.7;
-  margin-top: 0.75rem;
 }
 
 /* ---- Shared layout container ---- */
