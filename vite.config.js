@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs';
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
 // Only allow the services the site actually uses. Added to the production
@@ -47,8 +47,28 @@ const staticFolderPages = {
   }
 };
 
-export default defineConfig({
-  plugins: [react(), contentSecurityPolicy, staticFolderPages],
+// Link previews (WhatsApp, Signal, Facebook …) need absolute URLs. Set
+// SITE_URL (e.g. https://www.example.de) in .env or in the hosting settings;
+// without it the tags fall back to relative URLs, which many apps ignore.
+const sharePreview = (siteUrl) => ({
+  name: 'share-preview',
+  transformIndexHtml(html) {
+    return html.replaceAll('%SITE_URL%', siteUrl.replace(/\/$/, ''));
+  },
+  buildStart() {
+    if (!siteUrl) {
+      this.warn('SITE_URL is not set: link previews will use relative URLs.');
+    }
+  }
+});
+
+export default defineConfig(({ mode }) => ({
+  plugins: [
+    react(),
+    contentSecurityPolicy,
+    staticFolderPages,
+    sharePreview(loadEnv(mode, process.cwd(), '').SITE_URL || '')
+  ],
   server: {
     port: 3000,
     open: true
@@ -56,4 +76,4 @@ export default defineConfig({
   build: {
     outDir: 'build'
   }
-});
+}));

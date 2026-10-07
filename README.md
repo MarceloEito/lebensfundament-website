@@ -57,6 +57,7 @@ lebensfundament-website/
 │   ├── datenschutz/index.html  # Datenschutzerklärung (static page)
 │   ├── legal.css               # Shared styles for the legal pages
 │   ├── logo.svg                # Church logo (vector) + PNG icons
+│   ├── og-image.jpg            # Link preview image (1200×630)
 │   ├── videos/                 # Hero video + poster frame
 │   └── *.jpg                   # Church photos and posters (not used yet)
 ├── src/
@@ -100,7 +101,9 @@ Messages are forwarded by [FormSubmit](https://formsubmit.co). After the first s
 
 ## 🌐 Deployment
 
-The site is a static build, so any static host works. Hosts that rebuild automatically on every push are recommended:
+The site is a static build, so any static host works. Hosts that rebuild automatically on every push are recommended.
+
+Set the environment variable **`SITE_URL`** to the public address (e.g. `https://www.example.de`) in the hosting settings. It is used for the link preview (`og:image`, `og:url`) shown when the site is shared on WhatsApp, Signal or Facebook. Locally it can go into a `.env` file (see `.env.example`).
 
 - **Netlify** or **Cloudflare Pages**: connect the GitHub repo, build command `npm run build`, output folder `build`
 - **Vercel**: `npx vercel`
