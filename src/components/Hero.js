@@ -14,6 +14,7 @@ function Hero() {
             loop
             muted
             playsInline
+            poster="/videos/background-poster.jpg"
             className="hero-video"
             onError={() => setVideoError(true)}
           >
@@ -26,7 +27,7 @@ function Hero() {
           <div
             className="hero-fallback-image"
             style={{
-              backgroundImage: `url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1920&q=80')`
+              backgroundImage: "url('/videos/background-poster.jpg')"
             }}
           ></div>
         )}

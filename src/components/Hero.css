@@ -8,7 +8,7 @@
   align-items: center;
   overflow: hidden;
   margin-top: 70px;
-  background: #ffffff;
+  background: var(--color-text-primary);
 }
 
 .hero-video-container {
@@ -19,7 +19,7 @@
   height: 100%;
   overflow: hidden;
   z-index: 0;
-  background: #ffffff;
+  background: var(--color-text-primary);
 }
 
 .hero-video {
@@ -32,8 +32,6 @@
   height: auto;
   transform: translate(-50%, -50%);
   object-fit: cover;
-  opacity: 0.75;
-  filter: brightness(1.1) contrast(1.05);
 }
 
 .hero-fallback-image {
@@ -45,7 +43,6 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: brightness(0.85) saturate(1.1);
 }
 
 .video-overlay {
@@ -54,10 +51,11 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(160deg,
-    rgba(255, 255, 255, 0.72) 0%,
-    rgba(255, 200, 160, 0.35) 50%,
-    rgba(255, 255, 255, 0.68) 100%);
+  /* Warm dark tint so white text stays readable on the colorful video */
+  background: linear-gradient(180deg,
+    rgba(28, 20, 16, 0.35) 0%,
+    rgba(28, 20, 16, 0.5) 55%,
+    rgba(28, 20, 16, 0.65) 100%);
   z-index: 1;
 }
 
@@ -75,7 +73,7 @@
   font-size: 1.2rem;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: var(--color-orange);
+  color: var(--color-orange-warm);
   margin-bottom: 1rem;
   font-weight: 500;
 }
@@ -87,8 +85,8 @@
   line-height: 1.1;
   margin-bottom: 1.5rem;
   letter-spacing: -0.5px;
-  color: var(--color-text-primary);
-  text-shadow: 0 2px 20px rgba(255, 255, 255, 0.8);
+  color: #ffffff;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
   animation: slideInTitle 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) 0.15s backwards;
 }
 
@@ -106,7 +104,7 @@
 .hero-motto {
   font-family: var(--font-heading);
   font-size: 1.5rem;
-  color: var(--color-text-primary);
+  color: #ffffff;
   margin-bottom: 3rem;
   font-style: italic;
   font-weight: 400;
@@ -117,6 +115,16 @@
   gap: 1.5rem;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.hero-buttons .btn-outline {
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.hero-buttons .btn-outline:hover {
+  background: #ffffff;
+  color: var(--color-orange);
 }
 
 .hero-info-bar {
