@@ -33,7 +33,7 @@
 .footer-section h3 {
   font-family: var(--font-heading);
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: var(--font-heading-weight);
   color: var(--color-orange-warm);
   margin-bottom: 1rem;
   letter-spacing: 1px;
@@ -98,6 +98,27 @@
 .footer-bottom p {
   color: rgba(196, 168, 130, 0.82);
   font-size: 0.9rem;
+}
+
+.footer-legal {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+.footer-legal a {
+  display: inline-block;
+  /* Comfortable touch target */
+  padding: 0.75rem 0.5rem;
+  color: rgba(196, 168, 130, 0.82);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.footer-legal a:hover {
+  color: #ffffff;
+  text-decoration: underline;
 }
 
 /* Tablet breakpoint */

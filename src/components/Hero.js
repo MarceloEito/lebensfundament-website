@@ -5,7 +5,7 @@ function Hero() {
   const [videoError, setVideoError] = useState(false);
 
   return (
-    <div className="hero-modern">
+    <section className="hero-modern" id="home">
       {/* Video Background */}
       <div className="hero-video-container">
         {!videoError ? (
@@ -14,6 +14,7 @@ function Hero() {
             loop
             muted
             playsInline
+            poster="/videos/background-poster.jpg"
             className="hero-video"
             onError={() => setVideoError(true)}
           >
@@ -26,7 +27,7 @@ function Hero() {
           <div
             className="hero-fallback-image"
             style={{
-              backgroundImage: `url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1920&q=80')`
+              backgroundImage: "url('/videos/background-poster.jpg')"
             }}
           ></div>
         )}
@@ -39,7 +40,7 @@ function Hero() {
           <h1 className="hero-title">LEBENSFUNDAMENT</h1>
           <p className="hero-motto">"Jesus ist unser Lebensfundament"</p>
           <div className="hero-buttons">
-            <a href="#services" className="btn btn-fill btn-lg">Gottesdienst besuchen</a>
+            <a href="#location" className="btn btn-fill btn-lg">Gottesdienst besuchen</a>
             <a href="#about" className="btn btn-outline btn-lg">Mehr erfahren</a>
           </div>
         </div>
@@ -61,7 +62,7 @@ function Hero() {
           <span className="info-value">Komm wie du bist</span>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

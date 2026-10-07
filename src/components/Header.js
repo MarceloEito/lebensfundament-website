@@ -11,6 +11,20 @@ function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // While the mobile menu is open: lock page scroll and close on Escape
+  useEffect(() => {
+    if (!menuOpen) return undefined;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setMenuOpen(false);
+    };
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [menuOpen]);
+
   return (
     <>
       <header className={`modern-header${scrolled ? ' scrolled' : ''}`}>
@@ -23,14 +37,16 @@ function Header() {
           <button
             className="hamburger-menu"
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Menu"
+            aria-label={menuOpen ? 'Menü schließen' : 'Menü öffnen'}
+            aria-expanded={menuOpen}
+            aria-controls="main-nav"
           >
             <span className={menuOpen ? 'open' : ''}></span>
             <span className={menuOpen ? 'open' : ''}></span>
             <span className={menuOpen ? 'open' : ''}></span>
           </button>
 
-          <nav className={`main-nav ${menuOpen ? 'active' : ''}`}>
+          <nav id="main-nav" className={`main-nav ${menuOpen ? 'active' : ''}`}>
             <a href="#home" onClick={() => setMenuOpen(false)}>Home</a>
             <a href="#about" onClick={() => setMenuOpen(false)}>Über uns</a>
             <a href="#events" onClick={() => setMenuOpen(false)}>Veranstaltungen</a>

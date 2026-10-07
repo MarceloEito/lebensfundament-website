@@ -6,38 +6,37 @@ A modern, responsive website for Kirche Lebensfundament in Bruchmühlbach-Miesau
 
 ## 🎨 Features
 
-- ✅ **Modern Orange/White Design** - Colors from the church logo
-- ✅ **Fully Responsive** - Works on all devices
-- ✅ **Video Background** - Dynamic hero section
-- ✅ **Google Maps Integration** - Shows exact location
-- ✅ **Contact Form** - For inquiries and prayer requests
-- ✅ **Service Times** - Clear display of all events
-- ✅ **Smooth Animations** - Professional hover effects and transitions
+- ✅ **Warm terracotta design** – colors taken from the church logo
+- ✅ **Fully responsive** – tested on phones (360–430 px), tablets and desktop
+- ✅ **Video hero** – worship video with a poster frame while it loads
+- ✅ **Events** – regular services and upcoming events in two tabs
+- ✅ **Directions** – Google Maps for the church, parking and the train station, with a public transport route
+- ✅ **Contact form** – sent by email via FormSubmit, with German validation messages
+- ✅ **Legal pages** – Impressum and Datenschutzerklärung (templates with placeholders)
 
 ## 🚀 Technologies
 
-- React 18
-- CSS3 with modern features
-- Google Maps Embed API
-- Responsive Design (Mobile-First)
+- React 18 (Create React App)
+- Plain CSS with design tokens (CSS custom properties)
+- [AOS](https://michalsnik.github.io/aos/) for scroll animations
+- Fonts: EB Garamond (headings) and Inter (body text) via Google Fonts
+- Icons: inline SVGs from [Feather](https://feathericons.com) and [Phosphor](https://phosphoricons.com) (Bold)
 
 ## 📦 Installation
 
 ```bash
 # Clone repository
 git clone https://github.com/MarceloEito/lebensfundament-website.git
-
-# Change directory
 cd lebensfundament-website
 
 # Install dependencies
-npm install
+npm ci
 
 # Start development server
 npm start
 ```
 
-The website will automatically open at [http://localhost:3000](http://localhost:3000)
+The website opens automatically at [http://localhost:3000](http://localhost:3000).
 
 ## 🏗️ Build for Production
 
@@ -52,18 +51,24 @@ Creates an optimized production build in the `build` folder.
 ```
 lebensfundament-website/
 ├── public/
-│   ├── index.html
-│   └── logo.jpeg          # Church logo
+│   ├── index.html              # HTML shell, fonts, Content-Security-Policy
+│   ├── impressum/index.html    # Impressum (static page)
+│   ├── datenschutz/index.html  # Datenschutzerklärung (static page)
+│   ├── legal.css               # Shared styles for the legal pages
+│   ├── logo.jpeg               # Church logo (also used as favicon)
+│   ├── videos/                 # Hero video + poster frame
+│   └── *.jpg                   # Church photos and posters (not used yet)
 ├── src/
 │   ├── components/
-│   │   ├── Header.js      # Navigation & Logo
-│   │   ├── Hero.js        # Hero section with video
-│   │   ├── ServiceTimes.js # Service times
-│   │   ├── WhatToExpect.js # Info section
-│   │   ├── MapSection.js  # Google Maps
-│   │   ├── ContactForm.js # Contact form
-│   │   ├── Location.js    # Contact banner
-│   │   └── Footer.js      # Footer
+│   │   ├── Header.js           # Logo, navigation, mobile menu
+│   │   ├── Hero.js             # Video hero with info bar
+│   │   ├── WhatToExpect.js     # "Über uns" section
+│   │   ├── Events.js           # Regular services + upcoming events
+│   │   ├── MapSection.js       # "Besuche uns": address, parking, train station
+│   │   ├── ContactForm.js      # Contact form (FormSubmit)
+│   │   ├── Location.js         # Address banner
+│   │   └── Footer.js           # Footer with legal links
+│   ├── index.css               # Design tokens and shared styles
 │   ├── App.js
 │   └── index.js
 └── package.json
@@ -71,55 +76,40 @@ lebensfundament-website/
 
 ## 🎨 Customization
 
-### Change Colors
-Main colors are defined in CSS files:
-- **Orange**: `#ff6b35`
-- **White**: `#ffffff`
-- **Dark Gray**: `#1a1a1a`
+### Colors and fonts
+All colors, fonts, shadows and spacing are defined once as CSS variables at the top of `src/index.css`, e.g.:
+- **Terracotta**: `--color-orange: #ab4d13`
+- **Text**: `--color-text-primary: #1c1410`
+- **Heading font**: `--font-heading` and `--font-heading-weight`
 
-### Customize Content
-- **Service Times**: `src/components/ServiceTimes.js`
-- **Address**: `src/components/MapSection.js` and `Location.js`
-- **Contact Form Options**: `src/components/ContactForm.js`
+### Content
+- **Regular services and upcoming events**: `src/components/Events.js` (upcoming events are placeholders for now)
+- **Service times in the footer**: `src/components/Footer.js`
+- **Address, parking and station maps**: `src/components/MapSection.js`
+- **Contact form recipient**: `FORM_ENDPOINT` in `src/components/ContactForm.js`
+- **Hero video**: replace `public/videos/background.mp4` (and `background-poster.jpg`)
 
-### Google Maps Location
-The map is already set to the correct address:
-- **Eichenhübel 14, 66892 Bruchmühlbach-Miesau, Germany**
+### Contact form
+Messages are forwarded by [FormSubmit](https://formsubmit.co). After the first submission FormSubmit sends an activation email to the recipient address; messages only arrive once the "Activate Form" link has been confirmed.
+
+### Legal pages
+`public/impressum/index.html` and `public/datenschutz/index.html` contain placeholders in `[square brackets]` that must be filled in before going live. They are templates, not legal advice.
 
 ## 🌐 Deployment
 
-### Vercel (Recommended)
-```bash
-npm install -g vercel
-vercel
-```
+The site is a static build, so any static host works. Hosts that rebuild automatically on every push are recommended:
 
-### Netlify
-```bash
-npm run build
-# Then upload the build folder to Netlify
-```
-
-### GitHub Pages
-```bash
-npm install --save-dev gh-pages
-
-# Add to package.json:
-"homepage": "https://marceloeito.github.io/lebensfundament-website",
-"scripts": {
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d build"
-}
-
-npm run deploy
-```
+- **Netlify** or **Cloudflare Pages**: connect the GitHub repo, build command `npm run build`, output folder `build`
+- **Vercel**: `npx vercel`
 
 ## 🔒 Branch Protection
 
-This repository uses Branch Protection Rules:
-- ❌ No direct pushing to `main`
-- ✅ All changes via Pull Requests
-- ✅ At least 1 approval required
+`main` is protected by a repository ruleset ("Protect main"):
+- ✅ Only the repository owner (admin) can push directly to `main`
+- ✅ Everyone else works on a branch and opens a Pull Request
+- ✅ Pull Requests need an approval from the code owner (`.github/CODEOWNERS`)
+- ✅ New pushes after an approval require a fresh approval
+- ❌ Force pushes and deleting `main` are blocked
 
 ### Workflow for Changes:
 
@@ -144,6 +134,7 @@ git push origin feature/my-change
 - 🕐 Sunday Service: 11:00 AM
 - 🙏 Prayer Meeting: Tuesday 6:30 PM
 - 🎸 Youth: Friday 7:00 PM
+- ⚡ Teens: weekly (time to be announced)
 
 ## 📄 License
 

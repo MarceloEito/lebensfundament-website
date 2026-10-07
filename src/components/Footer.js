@@ -24,6 +24,7 @@ function Footer() {
             <p>Sonntag: 11:00 Uhr</p>
             <p>Dienstag: 18:30 Uhr (Gebet)</p>
             <p>Freitag: 19:00 Uhr (Jugend)</p>
+            <p>Teens: wöchentlich (Termin folgt)</p>
           </div>
 
           <div className="footer-section">
@@ -40,6 +41,10 @@ function Footer() {
 
         <div className="footer-bottom">
           <p>&copy; {currentYear} Kirche Lebensfundament. Alle Rechte vorbehalten.</p>
+          <nav className="footer-legal" aria-label="Rechtliches">
+            <a href="/impressum/">Impressum</a>
+            <a href="/datenschutz/">Datenschutz</a>
+          </nav>
         </div>
       </div>
     </footer>

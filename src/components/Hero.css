@@ -1,14 +1,16 @@
 .hero-modern {
   position: relative;
-  height: 100vh;
-  min-height: 600px;
+  /* Fill the screen below the fixed header; the info bar sits in the
+     flow underneath the content so it can never cover the buttons */
+  min-height: calc(100vh - 70px);
+  min-height: calc(100svh - 70px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   margin-top: 70px;
-  background: #ffffff;
+  background: var(--color-text-primary);
 }
 
 .hero-video-container {
@@ -19,7 +21,7 @@
   height: 100%;
   overflow: hidden;
   z-index: 0;
-  background: #ffffff;
+  background: var(--color-text-primary);
 }
 
 .hero-video {
@@ -32,8 +34,6 @@
   height: auto;
   transform: translate(-50%, -50%);
   object-fit: cover;
-  opacity: 0.75;
-  filter: brightness(1.1) contrast(1.05);
 }
 
 .hero-fallback-image {
@@ -45,7 +45,6 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: brightness(0.85) saturate(1.1);
 }
 
 .video-overlay {
@@ -54,18 +53,23 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(160deg,
-    rgba(255, 255, 255, 0.72) 0%,
-    rgba(255, 200, 160, 0.35) 50%,
-    rgba(255, 255, 255, 0.68) 100%);
+  /* Warm dark tint so white text stays readable on the colorful video */
+  background: linear-gradient(180deg,
+    rgba(28, 20, 16, 0.35) 0%,
+    rgba(28, 20, 16, 0.5) 55%,
+    rgba(28, 20, 16, 0.65) 100%);
   z-index: 1;
 }
 
 .hero-content {
   position: relative;
   z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   max-width: 1400px;
-  padding: 0 2rem;
+  padding: 4rem 2rem;
   text-align: center;
   animation: fadeInUp 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
@@ -75,7 +79,7 @@
   font-size: 1.2rem;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: var(--color-orange);
+  color: var(--color-orange-warm);
   margin-bottom: 1rem;
   font-weight: 500;
 }
@@ -83,12 +87,12 @@
 .hero-title {
   font-family: var(--font-heading);
   font-size: clamp(3rem, 10vw, 7rem);
-  font-weight: 700;
+  font-weight: var(--font-heading-weight);
   line-height: 1.1;
   margin-bottom: 1.5rem;
   letter-spacing: -0.5px;
-  color: var(--color-text-primary);
-  text-shadow: 0 2px 20px rgba(255, 255, 255, 0.8);
+  color: #ffffff;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
   animation: slideInTitle 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) 0.15s backwards;
 }
 
@@ -106,7 +110,7 @@
 .hero-motto {
   font-family: var(--font-heading);
   font-size: 1.5rem;
-  color: var(--color-text-secondary);
+  color: #ffffff;
   margin-bottom: 3rem;
   font-style: italic;
   font-weight: 400;
@@ -119,11 +123,19 @@
   flex-wrap: wrap;
 }
 
+.hero-buttons .btn-outline {
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.hero-buttons .btn-outline:hover {
+  background: #ffffff;
+  color: var(--color-orange);
+}
+
 .hero-info-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  position: relative;
+  align-self: stretch;
   background: linear-gradient(135deg, #8a3d0f 0%, var(--color-orange) 40%, var(--color-orange-light) 100%);
   padding: 2rem;
   display: flex;
@@ -182,35 +194,48 @@
 @media (max-width: 768px) {
   .hero-modern {
     margin-top: 60px;
-    min-height: 500px;
+    min-height: calc(100vh - 60px);
+    min-height: calc(100svh - 60px);
+  }
+
+  .hero-content {
+    padding: 3rem 1.5rem;
   }
 
   .hero-title {
-    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-size: clamp(1.75rem, 8.5vw, 4rem);
   }
 
   .hero-motto {
     font-size: 1.2rem;
   }
 
-  .hero-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .hero-buttons .btn {
-    width: 100%;
-    max-width: 300px;
-  }
-
   .hero-info-bar {
     flex-direction: column;
-    gap: 1.5rem;
-    padding: 1.5rem;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .info-item {
+    gap: 0.2rem;
   }
 
   .info-divider {
     width: 60px;
     height: 1px;
+  }
+}
+
+/* Stack the hero buttons only where they don't fit side by side */
+@media (max-width: 600px) {
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+    max-width: 300px;
   }
 }
