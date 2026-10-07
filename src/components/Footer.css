@@ -33,7 +33,7 @@
 .footer-section h3 {
   font-family: var(--font-heading);
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: var(--font-heading-weight);
   color: var(--color-orange-warm);
   margin-bottom: 1rem;
   letter-spacing: 1px;

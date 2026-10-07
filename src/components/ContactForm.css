@@ -13,7 +13,7 @@
 .contact-header h2 {
   font-family: var(--font-heading);
   font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
+  font-weight: var(--font-heading-weight);
   margin-bottom: 1rem;
   color: var(--color-text-primary);
   letter-spacing: -0.5px;
@@ -143,7 +143,7 @@
 .success-modern h3 {
   font-family: var(--font-heading);
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: var(--font-heading-weight);
   color: var(--color-text-primary);
   margin-bottom: 1rem;
 }

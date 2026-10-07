@@ -1,5 +1,6 @@
 :root {
-  --font-heading: 'Fraunces', Georgia, serif;
+  --font-heading: 'EB Garamond', Georgia, serif;
+  --font-heading-weight: 500;
   --font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* Brand — fixed */
@@ -245,7 +246,7 @@ code {
 .section-heading {
   font-family: var(--font-heading);
   font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
+  font-weight: var(--font-heading-weight);
   color: var(--color-text-primary);
   letter-spacing: -0.5px;
   line-height: 1.15;
@@ -275,7 +276,7 @@ code {
 .section-title {
   font-family: var(--font-heading);
   font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
+  font-weight: var(--font-heading-weight);
   margin-bottom: 1rem;
   color: var(--color-text-primary);
   letter-spacing: -0.5px;
