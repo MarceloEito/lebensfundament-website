@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import './ContactForm.css';
 
 // FormSubmit forwards submissions to this address. After the first
@@ -17,16 +17,56 @@ const SUBJECT_LABELS = {
 const EMPTY_FORM = {
   name: '',
   email: '',
-  phone: '',
   subject: '',
   message: ''
 };
 
+const FIELD_ORDER = ['name', 'email', 'subject', 'message'];
+
+// Requires a dot in the domain and a TLD of at least two letters, so
+// entries like "max@web" or "max@web.d" are rejected.
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[a-zA-Z]{2,}$/;
+
+function validateField(name, value) {
+  const trimmed = value.trim();
+
+  switch (name) {
+    case 'name':
+      if (!trimmed) return 'Bitte gib deinen Namen ein.';
+      if (trimmed.length < 2) return 'Der Name muss mindestens 2 Zeichen lang sein.';
+      return '';
+    case 'email':
+      if (!trimmed) return 'Bitte gib deine E-Mail-Adresse ein.';
+      if (!EMAIL_PATTERN.test(trimmed)) {
+        return 'Bitte gib eine gültige E-Mail-Adresse ein, z. B. name@beispiel.de.';
+      }
+      return '';
+    case 'subject':
+      return value ? '' : 'Bitte wähle einen Betreff aus.';
+    case 'message':
+      if (!trimmed) return 'Bitte schreib uns eine Nachricht.';
+      if (trimmed.length < 10) return 'Die Nachricht muss mindestens 10 Zeichen lang sein.';
+      return '';
+    default:
+      return '';
+  }
+}
+
+function validateForm(data) {
+  const errors = {};
+  FIELD_ORDER.forEach((field) => {
+    const error = validateField(field, data[field]);
+    if (error) errors[field] = error;
+  });
+  return errors;
+}
+
 function ContactForm() {
   const [formData, setFormData] = useState(EMPTY_FORM);
-
+  const [errors, setErrors] = useState({});
   const [honeypot, setHoneypot] = useState('');
-  const [status, setStatus] = useState('idle'); // idle | sending | sent | error
+  const [status, setStatus] = useState('idle'); // idle | sending | sent | activation | error
+  const fieldRefs = useRef({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,13 +74,32 @@ function ContactForm() {
       ...prevState,
       [name]: value
     }));
+    // Once a field shows an error, update it live while the user corrects it
+    if (errors[name]) {
+      setErrors(prevErrors => ({ ...prevErrors, [name]: validateField(name, value) }));
+    }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    if (value) {
+      setErrors(prevErrors => ({ ...prevErrors, [name]: validateField(name, value) }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (status === 'sending') return;
-    setStatus('sending');
 
+    const formErrors = validateForm(formData);
+    setErrors(formErrors);
+    const firstInvalid = FIELD_ORDER.find(field => formErrors[field]);
+    if (firstInvalid) {
+      fieldRefs.current[firstInvalid].focus();
+      return;
+    }
+
+    setStatus('sending');
     const subjectLabel = SUBJECT_LABELS[formData.subject] || formData.subject;
 
     try {
@@ -51,12 +110,11 @@ function ContactForm() {
           Accept: 'application/json'
         },
         body: JSON.stringify({
-          Name: formData.name,
-          email: formData.email,
-          Telefon: formData.phone || '-',
+          Name: formData.name.trim(),
+          email: formData.email.trim(),
           Betreff: subjectLabel,
-          Nachricht: formData.message,
-          _subject: `Website-Kontakt: ${subjectLabel} (von ${formData.name})`,
+          Nachricht: formData.message.trim(),
+          _subject: `Website-Kontakt: ${subjectLabel} (von ${formData.name.trim()})`,
           _template: 'table',
           _honey: honeypot
         })
@@ -64,16 +122,35 @@ function ContactForm() {
       const result = await response.json().catch(() => ({}));
 
       if (!response.ok || String(result.success) !== 'true') {
-        throw new Error(result.message || `HTTP ${response.status}`);
+        const error = new Error(result.message || `HTTP ${response.status}`);
+        error.needsActivation = /activat/i.test(result.message || '');
+        throw error;
       }
 
       setStatus('sent');
       setFormData(EMPTY_FORM);
+      setErrors({});
     } catch (error) {
-      console.error('Contact form failed:', error);
-      setStatus('error');
+      console.error('Contact form failed:', error.message);
+      setStatus(error.needsActivation ? 'activation' : 'error');
     }
   };
+
+  const fieldProps = (name) => ({
+    id: name,
+    name,
+    value: formData[name],
+    onChange: handleChange,
+    onBlur: handleBlur,
+    ref: (el) => { fieldRefs.current[name] = el; },
+    'aria-invalid': errors[name] ? 'true' : 'false',
+    'aria-describedby': errors[name] ? `${name}-error` : undefined,
+    className: errors[name] ? 'has-error' : undefined
+  });
+
+  const fieldError = (name) => errors[name] && (
+    <span className="field-error" id={`${name}-error`}>{errors[name]}</span>
+  );
 
   return (
     <section className="contact-modern" id="contact">
@@ -94,58 +171,35 @@ function ContactForm() {
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="form-modern">
+            <form onSubmit={handleSubmit} className="form-modern" noValidate>
               <div className="form-grid">
                 <div className="form-field">
                   <label htmlFor="name">Name *</label>
                   <input
                     type="text"
-                    id="name"
                     maxLength={100}
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
+                    autoComplete="name"
                     placeholder="Dein vollständiger Name"
+                    {...fieldProps('name')}
                   />
+                  {fieldError('name')}
                 </div>
 
                 <div className="form-field">
                   <label htmlFor="email">E-Mail *</label>
                   <input
                     type="email"
-                    id="email"
                     maxLength={254}
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
+                    autoComplete="email"
                     placeholder="deine@email.de"
+                    {...fieldProps('email')}
                   />
+                  {fieldError('email')}
                 </div>
 
-                <div className="form-field">
-                  <label htmlFor="phone">Telefon</label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    maxLength={30}
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="+49 123 456789"
-                  />
-                </div>
-
-                <div className="form-field">
+                <div className="form-field full-width">
                   <label htmlFor="subject">Betreff *</label>
-                  <select
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                  >
+                  <select {...fieldProps('subject')}>
                     <option value="">Bitte wählen</option>
                     <option value="visit">Besuch planen</option>
                     <option value="prayer">Gebetsanliegen</option>
@@ -153,21 +207,19 @@ function ContactForm() {
                     <option value="general">Allgemeine Frage</option>
                     <option value="other">Sonstiges</option>
                   </select>
+                  {fieldError('subject')}
                 </div>
               </div>
 
               <div className="form-field full-width">
                 <label htmlFor="message">Nachricht *</label>
                 <textarea
-                  id="message"
                   maxLength={5000}
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
                   rows="6"
                   placeholder="Wie können wir dir helfen?"
+                  {...fieldProps('message')}
                 ></textarea>
+                {fieldError('message')}
               </div>
 
               {/* Hidden from people; bots that fill it are rejected by FormSubmit */}
@@ -181,6 +233,14 @@ function ContactForm() {
                 value={honeypot}
                 onChange={(e) => setHoneypot(e.target.value)}
               />
+
+              {status === 'activation' && (
+                <p className="form-error" role="alert">
+                  Das Kontaktformular ist noch nicht freigeschaltet. Wir haben eine
+                  Bestätigungs-E-Mail an die Gemeinde-Adresse geschickt. Sobald der
+                  Link darin bestätigt ist, kommen Nachrichten an.
+                </p>
+              )}
 
               {status === 'error' && (
                 <p className="form-error" role="alert">

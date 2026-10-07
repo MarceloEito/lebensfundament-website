@@ -158,6 +158,17 @@
   margin-top: 2rem;
 }
 
+.form-field .has-error,
+.form-field .has-error:hover,
+.form-field .has-error:focus {
+  border-color: #c0392b;
+}
+
+.field-error {
+  color: #a3261a;
+  font-size: 0.875rem;
+}
+
 .form-honeypot {
   position: absolute;
   left: -9999px;
