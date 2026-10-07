@@ -104,10 +104,12 @@ The site is a static build, so any static host works. Hosts that rebuild automat
 
 ## 🔒 Branch Protection
 
-This repository uses Branch Protection Rules:
-- ❌ No direct pushing to `main`
-- ✅ All changes via Pull Requests
-- ✅ At least 1 approval required
+`main` is protected by a repository ruleset ("Protect main"):
+- ✅ Only the repository owner (admin) can push directly to `main`
+- ✅ Everyone else works on a branch and opens a Pull Request
+- ✅ Pull Requests need an approval from the code owner (`.github/CODEOWNERS`)
+- ✅ New pushes after an approval require a fresh approval
+- ❌ Force pushes and deleting `main` are blocked
 
 ### Workflow for Changes:
 
