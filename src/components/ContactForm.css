@@ -154,6 +154,42 @@
   line-height: 1.6;
 }
 
+.success-modern .btn {
+  margin-top: 2rem;
+}
+
+.form-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.form-error {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  background: #fdecea;
+  color: #8a1c12;
+}
+
+.form-privacy {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.form-privacy a {
+  color: var(--color-orange);
+}
+
+.form-submit-wrap .btn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
 @keyframes successFadeIn {
   from {
     opacity: 0;
