@@ -15,6 +15,13 @@ const CarIcon = () => (
   </svg>
 );
 
+// Phosphor Icons (Bold), https://phosphoricons.com
+const TrainIcon = () => (
+  <svg viewBox="0 0 256 256" fill="currentColor">
+    <path d="M184,20H72A36,36,0,0,0,36,56V184a36,36,0,0,0,36,36h0l-9.6,12.8a12,12,0,1,0,19.2,14.4L102,220h52l20.4,27.2a12,12,0,0,0,19.2-14.4L184,220h0a36,36,0,0,0,36-36V56A36,36,0,0,0,184,20ZM60,116V84h56v32Zm80-32h56v32H140ZM72,44H184a12,12,0,0,1,12,12v4H60V56A12,12,0,0,1,72,44ZM184,196H72a12,12,0,0,1-12-12V140H196v44A12,12,0,0,1,184,196Zm-80-28a16,16,0,1,1-16-16A16,16,0,0,1,104,168Zm80,0a16,16,0,1,1-16-16A16,16,0,0,1,184,168Z" />
+  </svg>
+);
+
 const NavigationIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <polygon points="3 11 22 2 13 21 11 13 3 11" />
@@ -27,6 +34,14 @@ function MapSection() {
   const addressMapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2583.5!2d7.458428407087288!3d49.38423161398556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4795df004a044307%3A0xe6d14f2ebc305347!2sFreie%20ev.%20Gemeinde%20Lebensfundament%20e.V.!5e0!3m2!1sde!2sde!4v1771491159446!5m2!1sde!2sde";
 
   const parkingMapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1298.6322142726885!2d7.4563654826162145!3d49.38498978615344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x410c9d9129d4f0d9%3A0x45b6770e5df8224c!2sGanztagsgrundschule%20Bruchm%C3%BChlbach-Martinsh%C3%B6he!5e0!3m2!1sde!2sde!4v1771535347158!5m2!1sde!2sde";
+
+  const transitMapUrl = `https://www.google.com/maps?q=${encodeURIComponent('Bahnhof Bruchmühlbach, 66892 Bruchmühlbach-Miesau')}&z=16&output=embed`;
+
+  const maps = {
+    address: { url: addressMapUrl, title: 'Kirche Lebensfundament Standort' },
+    parking: { url: parkingMapUrl, title: 'Parkplatz' },
+    transit: { url: transitMapUrl, title: 'Bahnhof Bruchmühlbach' }
+  };
 
   const address = "Eichenhübel 14, 66892 Bruchmühlbach-Miesau, Germany";
   const encodedAddress = encodeURIComponent(address);
@@ -54,7 +69,6 @@ function MapSection() {
                 </div>
               </div>
 
-
               <div
                 className={`location-card location-card-clickable ${activeLocation === 'parking' ? 'active' : ''}`}
                 onClick={() => setActiveLocation('parking')}
@@ -64,6 +78,18 @@ function MapSection() {
                   <h4>Parken</h4>
                   <p>Kostenlose Parkplätze</p>
                   <p>vor Ort verfügbar</p>
+                </div>
+              </div>
+
+              <div
+                className={`location-card location-card-clickable ${activeLocation === 'transit' ? 'active' : ''}`}
+                onClick={() => setActiveLocation('transit')}
+              >
+                <div className="location-icon"><TrainIcon /></div>
+                <div className="location-details">
+                  <h4>Nahverkehr</h4>
+                  <p>Bahnhof Bruchmühlbach</p>
+                  <p>Anreise mit Bus und Bahn</p>
                 </div>
               </div>
             </div>
@@ -82,8 +108,8 @@ function MapSection() {
 
         <div className="map-embed">
           <iframe
-            title={activeLocation === 'address' ? 'Kirche Lebensfundament Standort' : 'Parkplatz'}
-            src={activeLocation === 'address' ? addressMapUrl : parkingMapUrl}
+            title={maps[activeLocation].title}
+            src={maps[activeLocation].url}
             width="100%"
             height="100%"
             style={{ border: 0 }}
