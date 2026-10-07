@@ -30,6 +30,9 @@ const NavigationIcon = () => (
 
 function MapSection() {
   const [activeLocation, setActiveLocation] = useState('address');
+  // Google Maps sets cookies and receives the visitor's IP address, so the
+  // map only loads after the visitor explicitly asks for it.
+  const [mapLoaded, setMapLoaded] = useState(false);
 
   const addressMapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2583.5!2d7.458428407087288!3d49.38423161398556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4795df004a044307%3A0xe6d14f2ebc305347!2sFreie%20ev.%20Gemeinde%20Lebensfundament%20e.V.!5e0!3m2!1sde!2sde!4v1771491159446!5m2!1sde!2sde";
 
@@ -107,17 +110,32 @@ function MapSection() {
         </div>
 
         <div className="map-embed">
-          <iframe
-            title={maps[activeLocation].title}
-            src={maps[activeLocation].url}
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            allowFullScreen=""
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            key={activeLocation}
-          ></iframe>
+          {mapLoaded ? (
+            <iframe
+              title={maps[activeLocation].title}
+              src={maps[activeLocation].url}
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              key={activeLocation}
+            ></iframe>
+          ) : (
+            <div className="map-consent">
+              <div className="map-consent-icon"><MapPinIcon /></div>
+              <h3>Karte anzeigen</h3>
+              <p>
+                Die Karte wird von Google Maps geladen. Dabei werden Daten wie
+                deine IP-Adresse an Google übertragen und Cookies gesetzt.
+                Mehr dazu in unserer <a href="/datenschutz/">Datenschutzerklärung</a>.
+              </p>
+              <button type="button" className="btn btn-fill" onClick={() => setMapLoaded(true)}>
+                Karte laden
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>
