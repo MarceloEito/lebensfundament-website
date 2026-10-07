@@ -151,7 +151,7 @@ function Events() {
   const regularEvents = [
     {
       id: 1,
-      title: 'Sonntagsgottesdienst',
+      title: 'Gottesdienst',
       day: 'Jeden Sonntag',
       time: '11:00 Uhr',
       description: 'Unser Hauptgottesdienst mit Lobpreis, Predigt und Gemeinschaft',
