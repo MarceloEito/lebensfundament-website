@@ -95,13 +95,13 @@ function MapSection() {
             </div>
 
             <a
-              href={`https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`}
+              href={`https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}${activeLocation === 'transit' ? '&travelmode=transit' : ''}`}
               target="_blank"
               rel="noopener noreferrer"
               className="route-btn"
             >
               <NavigationIcon />
-              Route berechnen
+              {activeLocation === 'transit' ? 'Route mit Bahn' : 'Route berechnen'}
             </a>
           </div>
         </div>
