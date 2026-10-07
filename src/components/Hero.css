@@ -106,7 +106,7 @@
 .hero-motto {
   font-family: var(--font-heading);
   font-size: 1.5rem;
-  color: var(--color-text-secondary);
+  color: var(--color-text-primary);
   margin-bottom: 3rem;
   font-style: italic;
   font-weight: 400;

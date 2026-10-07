@@ -8,13 +8,6 @@ const MapPinIcon = () => (
   </svg>
 );
 
-const ClockIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="10" />
-    <polyline points="12 6 12 12 16 14" />
-  </svg>
-);
-
 const CarIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <rect x="1" y="3" width="15" height="13" rx="2" />
@@ -63,14 +56,6 @@ function MapSection() {
                 </div>
               </div>
 
-              <div className="location-card">
-                <div className="location-icon"><ClockIcon /></div>
-                <div className="location-details">
-                  <h4>Gottesdienst</h4>
-                  <p>Jeden Sonntag</p>
-                  <p>11:00 Uhr</p>
-                </div>
-              </div>
 
               <div
                 className={`location-card location-card-clickable ${activeLocation === 'parking' ? 'active' : ''}`}

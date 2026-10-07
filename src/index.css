@@ -67,6 +67,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Keep anchor targets clear of the fixed header */
+section[id] {
+  scroll-margin-top: 70px;
+}
+
 body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;

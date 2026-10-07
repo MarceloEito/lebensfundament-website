@@ -40,6 +40,9 @@ function Footer() {
 
         <div className="footer-bottom">
           <p>&copy; {currentYear} Kirche Lebensfundament. Alle Rechte vorbehalten.</p>
+          <nav className="footer-legal" aria-label="Rechtliches">
+            <a href="/impressum/">Impressum</a>
+          </nav>
         </div>
       </div>
     </footer>

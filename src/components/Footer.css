@@ -100,6 +100,21 @@
   font-size: 0.9rem;
 }
 
+.footer-legal {
+  margin-top: 0.75rem;
+}
+
+.footer-legal a {
+  color: rgba(196, 168, 130, 0.82);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.footer-legal a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
 /* Tablet breakpoint */
 @media (min-width: 769px) and (max-width: 1023px) {
   .footer-content {
