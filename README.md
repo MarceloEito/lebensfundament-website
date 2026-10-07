@@ -2,7 +2,7 @@
 
 A modern, responsive website for Kirche Lebensfundament in Bruchmühlbach-Miesau, built with React.
 
-![Logo](public/logo.jpeg)
+<img src="public/logo.svg" alt="Logo" width="120">
 
 ## 🎨 Features
 
@@ -56,7 +56,7 @@ lebensfundament-website/
 │   ├── impressum/index.html    # Impressum (static page)
 │   ├── datenschutz/index.html  # Datenschutzerklärung (static page)
 │   ├── legal.css               # Shared styles for the legal pages
-│   ├── logo.jpeg               # Church logo (also used as favicon)
+│   ├── logo.svg                # Church logo (vector) + PNG icons
 │   ├── videos/                 # Hero video + poster frame
 │   └── *.jpg                   # Church photos and posters (not used yet)
 ├── src/
