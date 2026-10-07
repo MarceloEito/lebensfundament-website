@@ -42,6 +42,7 @@ function Footer() {
           <p>&copy; {currentYear} Kirche Lebensfundament. Alle Rechte vorbehalten.</p>
           <nav className="footer-legal" aria-label="Rechtliches">
             <a href="/impressum/">Impressum</a>
+            <a href="/datenschutz/">Datenschutz</a>
           </nav>
         </div>
       </div>
