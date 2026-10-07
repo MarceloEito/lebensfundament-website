@@ -1,7 +1,9 @@
 .hero-modern {
   position: relative;
-  height: 100vh;
-  min-height: 600px;
+  /* Fill the screen below the fixed header; the info bar sits in the
+     flow underneath the content so it can never cover the buttons */
+  min-height: calc(100vh - 70px);
+  min-height: calc(100svh - 70px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -62,8 +64,12 @@
 .hero-content {
   position: relative;
   z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   max-width: 1400px;
-  padding: 0 2rem;
+  padding: 4rem 2rem;
   text-align: center;
   animation: fadeInUp 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
@@ -128,10 +134,8 @@
 }
 
 .hero-info-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  position: relative;
+  align-self: stretch;
   background: linear-gradient(135deg, #8a3d0f 0%, var(--color-orange) 40%, var(--color-orange-light) 100%);
   padding: 2rem;
   display: flex;
@@ -190,35 +194,48 @@
 @media (max-width: 768px) {
   .hero-modern {
     margin-top: 60px;
-    min-height: 500px;
+    min-height: calc(100vh - 60px);
+    min-height: calc(100svh - 60px);
+  }
+
+  .hero-content {
+    padding: 3rem 1.5rem;
   }
 
   .hero-title {
-    font-size: clamp(2rem, 9vw, 4rem);
+    font-size: clamp(1.75rem, 8.5vw, 4rem);
   }
 
   .hero-motto {
     font-size: 1.2rem;
   }
 
-  .hero-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .hero-buttons .btn {
-    width: 100%;
-    max-width: 300px;
-  }
-
   .hero-info-bar {
     flex-direction: column;
-    gap: 1.5rem;
-    padding: 1.5rem;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .info-item {
+    gap: 0.2rem;
   }
 
   .info-divider {
     width: 60px;
     height: 1px;
+  }
+}
+
+/* Stack the hero buttons only where they don't fit side by side */
+@media (max-width: 600px) {
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+    max-width: 300px;
   }
 }

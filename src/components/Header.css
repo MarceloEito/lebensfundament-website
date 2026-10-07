@@ -50,11 +50,24 @@
 .hamburger-menu {
   display: none;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  /* 44px touch target around the 28px icon */
+  width: 44px;
+  height: 44px;
+  margin-right: -8px;
   background: transparent;
   border: none;
   cursor: pointer;
   padding: 0;
   z-index: 1001;
+}
+
+.hamburger-menu:focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
 }
 
 .hamburger-menu span {
@@ -146,13 +159,17 @@
     align-items: flex-start;
     padding: 6rem 2rem 2rem;
     gap: 2rem;
-    transition: right var(--transition-smooth);
+    /* Hidden links must not be reachable with Tab while the menu is closed */
+    visibility: hidden;
+    transition: right var(--transition-smooth), visibility 0s linear 300ms;
     z-index: 999;
     box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
   }
 
   .main-nav.active {
     right: 0;
+    visibility: visible;
+    transition: right var(--transition-smooth);
   }
 
   .main-nav a {
@@ -169,5 +186,21 @@
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
     z-index: 998;
+  }
+}
+
+/* Small phones: keep a gap between the wordmark and the menu button */
+@media (max-width: 400px) {
+  .header-container {
+    padding: 0 1.25rem;
+  }
+
+  .logo {
+    gap: 0.6rem;
+  }
+
+  .logo h1 {
+    font-size: 1.05rem;
+    letter-spacing: 1px;
   }
 }
