@@ -105,7 +105,8 @@ The site is a static build, so any static host works. Hosts that rebuild automat
 
 Set the environment variable **`SITE_URL`** to the public address (e.g. `https://www.example.de`) in the hosting settings. It is used for the link preview (`og:image`, `og:url`) shown when the site is shared on WhatsApp, Signal or Facebook. Locally it can go into a `.env` file (see `.env.example`).
 
-- **Netlify** or **Cloudflare Pages**: connect the GitHub repo, build command `npm run build`, output folder `build`
+- **Netlify** (recommended): connect the GitHub repo; build settings, Node version and security headers come from `netlify.toml`. Without a custom domain the site runs at `<name>.netlify.app` and is hidden from search engines (`noindex`) until a real domain is set.
+- **Cloudflare Pages**: build command `npm run build`, output folder `build`
 - **Vercel**: `npx vercel`
 
 ## 🔒 Branch Protection

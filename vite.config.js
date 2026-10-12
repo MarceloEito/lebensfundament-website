@@ -49,11 +49,15 @@ const staticFolderPages = {
 
 // Link previews (WhatsApp, Signal, Facebook …) need absolute URLs. Set
 // SITE_URL (e.g. https://www.example.de) in .env or in the hosting settings;
-// without it the tags fall back to relative URLs, which many apps ignore.
+// on Netlify the URL variable it provides is used when SITE_URL is missing.
+// Test addresses (*.netlify.app) are kept out of search engines.
 const sharePreview = (siteUrl) => ({
   name: 'share-preview',
   transformIndexHtml(html) {
-    return html.replaceAll('%SITE_URL%', siteUrl.replace(/\/$/, ''));
+    const tags = !siteUrl || siteUrl.includes('.netlify.app')
+      ? [{ tag: 'meta', attrs: { name: 'robots', content: 'noindex' }, injectTo: 'head' }]
+      : [];
+    return { html: html.replaceAll('%SITE_URL%', siteUrl.replace(/\/$/, '')), tags };
   },
   buildStart() {
     if (!siteUrl) {
@@ -62,18 +66,21 @@ const sharePreview = (siteUrl) => ({
   }
 });
 
-export default defineConfig(({ mode }) => ({
-  plugins: [
-    react(),
-    contentSecurityPolicy,
-    staticFolderPages,
-    sharePreview(loadEnv(mode, process.cwd(), '').SITE_URL || '')
-  ],
-  server: {
-    port: 3000,
-    open: true
-  },
-  build: {
-    outDir: 'build'
-  }
-}));
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+  return {
+    plugins: [
+      react(),
+      contentSecurityPolicy,
+      staticFolderPages,
+      sharePreview(env.SITE_URL || env.URL || '')
+    ],
+    server: {
+      port: 3000,
+      open: true
+    },
+    build: {
+      outDir: 'build'
+    }
+  };
+});
