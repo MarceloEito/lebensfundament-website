@@ -43,7 +43,6 @@ function FeedbackDialog() {
   const [open, setOpen] = useState(false);
   const [area, setArea] = useState(AREAS[0]);
   const [message, setMessage] = useState('');
-  const [name, setName] = useState('');
   const [honeypot, setHoneypot] = useState('');
   const [error, setError] = useState('');
   const [status, setStatus] = useState('idle'); // idle | sending | sent | activation | error
@@ -85,10 +84,9 @@ function FeedbackDialog() {
       await sendForm({
         Bereich: area,
         Feedback: message.trim(),
-        Name: name.trim() || 'ohne Namen',
         Gerät: deviceInfo(),
         Seite: window.location.href,
-        _subject: `Website-Feedback: ${area}${name.trim() ? ` (von ${name.trim()})` : ''}`,
+        _subject: `Website-Feedback: ${area}`,
         _template: 'table',
         _honey: honeypot
       });
@@ -170,17 +168,6 @@ function FeedbackDialog() {
                     aria-describedby={error ? 'feedback-error' : undefined}
                   />
                   {error && <span className="feedback-error" id="feedback-error">{error}</span>}
-                </label>
-
-                <label className="feedback-field">
-                  <span>Dein Name (freiwillig)</span>
-                  <input
-                    type="text"
-                    maxLength={100}
-                    autoComplete="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
                 </label>
 
                 {/* Hidden from people; bots that fill it are rejected by FormSubmit */}
