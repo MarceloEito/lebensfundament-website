@@ -12,7 +12,7 @@ function Location() {
   return (
     <div className="location-banner">
       <div className="location-content">
-        <h3><MapPinIcon />Eichenhübel 14, 66892 Bruchmühlbach-Miesau</h3>
+        <h3><MapPinIcon />Eichenhübel 12a, 66892 Bruchmühlbach-Miesau</h3>
       </div>
     </div>
   );

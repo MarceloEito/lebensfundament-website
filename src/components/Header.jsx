@@ -30,7 +30,7 @@ function Header() {
       <header className={`modern-header${scrolled ? ' scrolled' : ''}`}>
         <div className="header-container">
           <div className="logo">
-            <img src="/logo.jpeg" alt="Lebensfundament Logo" className="logo-image" />
+            <img src="/logo.svg" alt="Lebensfundament Logo" className="logo-image" />
             <h1>LEBENSFUNDAMENT</h1>
           </div>
 

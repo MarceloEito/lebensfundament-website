@@ -86,6 +86,10 @@ const LightningIcon = () => (
 
 function Events() {
   const [activeTab, setActiveTab] = useState('regular');
+  // Upcoming events are placeholders for now: hidden until real dates
+  // exist. Their Unsplash images are also blocked by the CSP and not
+  // covered by the Datenschutzerklärung, so use own photos when enabling.
+  const showUpcoming = false;
 
   const upcomingEvents = [
     {
@@ -201,22 +205,24 @@ function Events() {
         </div>
 
         {/* Tabs */}
-        <div className="events-tabs" data-aos="fade-up">
-          <button
-            className={`tab-btn ${activeTab === 'regular' ? 'active' : ''}`}
-            onClick={() => setActiveTab('regular')}
-          >
-            <span className="tab-icon"><RefreshIcon /></span>
-            Regelmäßige Termine
-          </button>
-          <button
-            className={`tab-btn ${activeTab === 'upcoming' ? 'active' : ''}`}
-            onClick={() => setActiveTab('upcoming')}
-          >
-            <span className="tab-icon"><CalendarIcon /></span>
-            Kommende Events
-          </button>
-        </div>
+        {showUpcoming && (
+          <div className="events-tabs" data-aos="fade-up">
+            <button
+              className={`tab-btn ${activeTab === 'regular' ? 'active' : ''}`}
+              onClick={() => setActiveTab('regular')}
+            >
+              <span className="tab-icon"><RefreshIcon /></span>
+              Regelmäßige Termine
+            </button>
+            <button
+              className={`tab-btn ${activeTab === 'upcoming' ? 'active' : ''}`}
+              onClick={() => setActiveTab('upcoming')}
+            >
+              <span className="tab-icon"><CalendarIcon /></span>
+              Kommende Events
+            </button>
+          </div>
+        )}
 
         {/* Content */}
         <div className="events-content">
@@ -243,7 +249,7 @@ function Events() {
             </div>
           )}
 
-          {activeTab === 'upcoming' && (
+          {showUpcoming && activeTab === 'upcoming' && (
             <div className="events-grid">
               {upcomingEvents.map((event, index) => (
                 <div

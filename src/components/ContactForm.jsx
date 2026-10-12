@@ -4,7 +4,8 @@ import './ContactForm.css';
 // FormSubmit forwards submissions to this address. After the first
 // submission FormSubmit sends an activation email; once confirmed it also
 // offers a random alias that can replace the address here to hide it.
-const FORM_ENDPOINT = 'https://formsubmit.co/ajax/peney49946@leafflip.com';
+// Temporary test recipient until the church has its own address.
+const FORM_ENDPOINT = 'https://formsubmit.co/ajax/marcel.eitel@gmx.net';
 
 const SUBJECT_LABELS = {
   visit: 'Besuch planen',
