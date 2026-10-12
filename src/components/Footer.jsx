@@ -23,8 +23,8 @@ function Footer() {
             <h4>Gottesdienste</h4>
             <p>Sonntag: 11:00 Uhr</p>
             <p>Dienstag: 18:30 Uhr (Gebet)</p>
+            <p>Donnerstag: 18:00 Uhr (Teens, alle 2 Wochen)</p>
             <p>Freitag: 19:00 Uhr (Jugend)</p>
-            <p>Teens: wöchentlich (Termin folgt)</p>
           </div>
 
           <div className="footer-section">

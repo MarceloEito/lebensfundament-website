@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import eventsData from '../data/events.json';
 import './Events.css';
 
 // Phosphor Icons (Bold), https://phosphoricons.com
@@ -12,44 +13,6 @@ const CrossIcon = () => (
 const PrayerHandsIcon = () => (
   <svg viewBox="0 0 256 256" fill="currentColor">
     <path d="M238.15,177.18l-35.53-35.53L166.45,22.3A25.75,25.75,0,0,0,128,8,25.75,25.75,0,0,0,89.55,22.3L53.38,141.65,17.85,177.18a20,20,0,0,0,0,28.28l32.69,32.69a20,20,0,0,0,28.28,0l48.29-48.28c.31-.31.6-.62.89-.94.29.32.58.63.89.94l48.29,48.28a20,20,0,0,0,28.28,0l32.69-32.69A20,20,0,0,0,238.15,177.18ZM64.68,218.35l-27-27,11-11,27,27ZM116,158.75a19.85,19.85,0,0,1-5.86,14.14L92.68,190.35l-27-27,6.83-6.83a11.94,11.94,0,0,0,3-5l37-122.23a1.78,1.78,0,0,1,3.48.52Zm47.5,31.78-17.64-17.64A19.85,19.85,0,0,1,140,158.75v-129a1.78,1.78,0,0,1,3.48-.52l37,122.23a11.94,11.94,0,0,0,3,5l7.6,7.6Zm27.82,27.82-10.85-10.84,27.63-26.44,10.25,10.25Z" />
-  </svg>
-);
-
-const MusicIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M9 18V5l12-2v13" />
-    <circle cx="6" cy="18" r="3" />
-    <circle cx="18" cy="16" r="3" />
-  </svg>
-);
-
-const UsersIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-    <circle cx="9" cy="7" r="4" />
-    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-  </svg>
-);
-
-const BookIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-  </svg>
-);
-
-const ClockIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="10" />
-    <polyline points="12 6 12 12 16 14" />
-  </svg>
-);
-
-const MapPinIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-    <circle cx="12" cy="10" r="3" />
   </svg>
 );
 
@@ -84,75 +47,50 @@ const LightningIcon = () => (
   </svg>
 );
 
+// Event flyers are managed in the admin area (/admin, Sveltia CMS) and
+// stored in src/data/events.json. A flyer shows until the end of its date.
+const toIsoDate = (date) => [
+  date.getFullYear(),
+  String(date.getMonth() + 1).padStart(2, '0'),
+  String(date.getDate()).padStart(2, '0')
+].join('-');
+
+const upcomingFlyers = () => {
+  const today = toIsoDate(new Date());
+  return (eventsData.events || [])
+    .map((event) => ({ ...event, date: String(event.date || '').slice(0, 10) }))
+    .filter((event) => event.image && event.date >= today)
+    .sort((a, b) => a.date.localeCompare(b.date));
+};
+
+const formatEventDate = (isoDate) => {
+  const [year, month, day] = isoDate.split('-').map(Number);
+  return new Date(year, month - 1, day).toLocaleDateString('de-DE', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'long'
+  });
+};
+
 function Events() {
   const [activeTab, setActiveTab] = useState('regular');
-  // Upcoming events are placeholders for now: hidden until real dates
-  // exist. Their Unsplash images are also blocked by the CSP and not
-  // covered by the Datenschutzerklärung, so use own photos when enabling.
-  const showUpcoming = false;
+  const [enlarged, setEnlarged] = useState(null);
+  const flyers = upcomingFlyers();
+  const showUpcoming = flyers.length > 0;
 
-  const upcomingEvents = [
-    {
-      id: 1,
-      title: 'Gottesdienst',
-      date: '2026-02-23',
-      dayName: 'Sonntag',
-      time: '11:00',
-      location: 'Hauptsaal',
-      description: 'Gemeinsamer Gottesdienst mit Lobpreis, Predigt und Abendmahl. Anschließend gemeinsames Mittagessen.',
-      category: 'Gottesdienst',
-      Icon: CrossIcon,
-      image: 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=800&q=80'
-    },
-    {
-      id: 2,
-      title: 'Gebetsstunde',
-      date: '2026-02-25',
-      dayName: 'Dienstag',
-      time: '18:30',
-      location: 'Gebetsraum',
-      description: 'Gemeinsames Gebet für unsere Gemeinde, Stadt und Nation. Jeder ist willkommen!',
-      category: 'Gebet',
-      Icon: PrayerHandsIcon,
-      image: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=800&q=80'
-    },
-    {
-      id: 3,
-      title: 'Jugend',
-      date: '2026-02-28',
-      dayName: 'Freitag',
-      time: '19:00',
-      location: 'Jugendraum',
-      description: 'Lobpreis, Gemeinschaft und biblischer Input für Jugendliche ab 14 Jahren.',
-      category: 'Jugend',
-      Icon: MusicIcon,
-      image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800&q=80'
-    },
-    {
-      id: 4,
-      title: 'Familien-Brunch',
-      date: '2026-03-02',
-      dayName: 'Sonntag',
-      time: '10:00',
-      location: 'Gemeindesaal',
-      description: 'Gemeinsamer Brunch für Familien mit Kindern. Bitte ein Gericht mitbringen!',
-      category: 'Gemeinschaft',
-      Icon: UsersIcon,
-      image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80'
-    },
-    {
-      id: 5,
-      title: 'Bibelstudium',
-      date: '2026-03-05',
-      dayName: 'Mittwoch',
-      time: '19:30',
-      location: 'Seminarraum',
-      description: 'Vertieftes Studium des Römerbriefs. Für alle, die tiefer ins Wort eintauchen wollen.',
-      category: 'Lehre',
-      Icon: BookIcon,
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80'
-    }
-  ];
+  // Enlarged flyer: close on Escape and lock page scroll
+  useEffect(() => {
+    if (!enlarged) return undefined;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setEnlarged(null);
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [enlarged]);
 
   const regularEvents = [
     {
@@ -182,19 +120,12 @@ function Events() {
     {
       id: 4,
       title: 'Teens',
-      day: 'Wöchentlich',
-      time: 'Termin folgt',
+      day: '14-tägig donnerstags',
+      time: '18:00 Uhr',
       description: 'Für Teenager – Gemeinschaft, Spiele und biblischer Input',
       Icon: LightningIcon
     }
   ];
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const day = date.getDate();
-    const month = date.toLocaleString('de-DE', { month: 'short' });
-    return { day, month };
-  };
 
   return (
     <section className="events-section" id="events">
@@ -250,58 +181,45 @@ function Events() {
           )}
 
           {showUpcoming && activeTab === 'upcoming' && (
-            <div className="events-grid">
-              {upcomingEvents.map((event, index) => (
-                <div
-                  key={event.id}
-                  className="event-card"
+            <div className="flyer-grid">
+              {flyers.map((flyer, index) => (
+                <figure
+                  key={`${flyer.date}-${flyer.image}`}
+                  className="flyer-card"
                   data-aos="fade-up"
                   data-aos-delay={index * 80}
                 >
-                  {event.image && (
-                    <div className="event-image" style={{ backgroundImage: `url(${event.image})` }}>
-                      <div className="event-image-overlay"></div>
-                    </div>
-                  )}
-
-                  <div className="event-date">
-                    <span className="event-day">{formatDate(event.date).day}</span>
-                    <span className="event-month">{formatDate(event.date).month}</span>
-                  </div>
-
-                  <div className="event-content">
-                    <div className="event-header">
-                      <span className="event-icon"><event.Icon /></span>
-                      <span className="event-category">
-                        {event.category}
-                      </span>
-                    </div>
-
-                    <h3 className="event-title">{event.title}</h3>
-
-                    <div className="event-meta">
-                      <div className="meta-item">
-                        <span className="meta-icon"><ClockIcon /></span>
-                        <span>{event.dayName}, {event.time} Uhr</span>
-                      </div>
-                      <div className="meta-item">
-                        <span className="meta-icon"><MapPinIcon /></span>
-                        <span>{event.location}</span>
-                      </div>
-                    </div>
-
-                    <p className="event-description">{event.description}</p>
-
-                    <button className="btn btn-outline" style={{ width: '100%' }}>
-                      Mehr erfahren
-                    </button>
-                  </div>
-                </div>
+                  <button
+                    type="button"
+                    className="flyer-image-button"
+                    onClick={() => setEnlarged(flyer)}
+                    aria-label={`${flyer.title || 'Flyer'} groß anzeigen`}
+                  >
+                    <img src={flyer.image} alt={flyer.title || 'Event-Flyer'} loading="lazy" />
+                  </button>
+                  <figcaption>
+                    <span className="flyer-date">{formatEventDate(flyer.date)}</span>
+                    {flyer.title && <span className="flyer-title">{flyer.title}</span>}
+                  </figcaption>
+                </figure>
               ))}
             </div>
           )}
         </div>
       </div>
+
+      {enlarged && (
+        <div
+          className="flyer-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label={enlarged.title || 'Event-Flyer'}
+          onClick={() => setEnlarged(null)}
+        >
+          <img src={enlarged.image} alt={enlarged.title || 'Event-Flyer'} />
+          <button type="button" className="flyer-lightbox-close" aria-label="Schließen">×</button>
+        </div>
+      )}
     </section>
   );
 }

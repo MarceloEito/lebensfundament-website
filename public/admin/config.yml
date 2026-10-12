@@ -1,0 +1,60 @@
+# Sveltia CMS: event flyers for the "Kommende Events" tab.
+# Saving commits to the GitHub repository; Netlify then publishes the site.
+
+backend:
+  name: github
+  repo: MarceloEito/lebensfundament-website
+  branch: main
+
+app_title: Lebensfundament – Verwaltung
+logo:
+  src: /apple-touch-icon.png
+
+media_folder: public/uploads/events
+public_folder: /uploads/events
+
+media_libraries:
+  default:
+    config:
+      max_file_size: 20000000
+      slugify_filename: true
+      # Phone photos are large: scale down and convert to WebP on upload
+      transformations:
+        raster_image:
+          format: webp
+          quality: 85
+          width: 1600
+          height: 2000
+
+collections:
+  - name: events
+    label: Kommende Events
+    description: >-
+      Flyer für den Tab „Kommende Events“ auf der Website. Nach dem Datum
+      wird ein Flyer automatisch ausgeblendet.
+    files:
+      - name: events
+        label: Event-Flyer
+        file: src/data/events.json
+        fields:
+          - name: events
+            label: Events
+            label_singular: Event
+            widget: list
+            summary: "{{fields.date}} – {{fields.title}}"
+            fields:
+              - name: image
+                label: Flyer
+                widget: image
+                hint: Am besten im Hochformat, wie ein Instagram-Post.
+              - name: title
+                label: Titel
+                widget: string
+                hint: Kurz, z. B. „Gemeindefest“. Steht unter dem Flyer und wird für Screenreader genutzt.
+              - name: date
+                label: Datum
+                widget: datetime
+                time_format: false
+                format: YYYY-MM-DD
+                date_format: DD.MM.YYYY
+                hint: Ab dem Tag danach wird der Flyer automatisch ausgeblendet.
