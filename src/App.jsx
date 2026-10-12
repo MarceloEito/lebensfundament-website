@@ -9,6 +9,7 @@ import MapSection from './components/MapSection';
 import ContactForm from './components/ContactForm';
 import Location from './components/Location';
 import Footer from './components/Footer';
+import FeedbackWidget from './components/FeedbackWidget';
 import './App.css';
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
       <ContactForm />
       <Location />
       <Footer />
+      <FeedbackWidget />
     </div>
   );
 }
