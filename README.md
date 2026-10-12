@@ -58,6 +58,8 @@ lebensfundament-website/
 │   ├── legal.css               # Shared styles for the legal pages
 │   ├── logo.svg                # Church logo (vector) + PNG icons
 │   ├── og-image.jpg            # Link preview image (1200×630)
+│   ├── admin/                  # Admin area for event flyers (Sveltia CMS)
+│   ├── uploads/events/         # Uploaded event flyers
 │   ├── videos/                 # Hero video + poster frame
 │   └── *.jpg                   # Church photos and posters (not used yet)
 ├── src/
@@ -70,6 +72,8 @@ lebensfundament-website/
 │   │   ├── ContactForm.jsx     # Contact form (FormSubmit)
 │   │   ├── Location.jsx        # Address banner
 │   │   └── Footer.jsx          # Footer with legal links
+│   ├── data/events.json        # Upcoming event flyers (edited via /admin)
+│   ├── formSubmit.js           # FormSubmit recipient + request helper
 │   ├── index.css               # Design tokens and shared styles
 │   ├── App.jsx
 │   └── index.jsx
@@ -92,6 +96,13 @@ All colors, fonts, shadows and spacing are defined once as CSS variables at the 
 - **Address, parking and station maps**: `src/components/MapSection.jsx`
 - **Contact form recipient**: `FORM_ENDPOINT` in `src/components/ContactForm.jsx`
 - **Hero video**: replace `public/videos/background.mp4` (and `background-poster.jpg`)
+
+### Event flyers (admin area)
+Flyers for the "Kommende Events" tab are managed at **`/admin`** (e.g. `https://<site>.netlify.app/admin/`) with [Sveltia CMS](https://sveltiacms.app). Add an event with a flyer image, a short title and the date; saving commits to `main`, and Netlify publishes the change within 1–2 minutes. A flyer disappears automatically after its date, and the tab is hidden while there are no upcoming flyers. Uploaded images are scaled down and converted to WebP and stored in `public/uploads/events/`; the data lives in `src/data/events.json`. Settings: `public/admin/config.yml`.
+
+Signing in requires write access to this GitHub repository:
+- **Access token** (works right away): on GitHub create a *fine-grained personal access token* for this repository only with *Contents: Read and write*, then choose "Sign In Using Access Token".
+- **Sign in with GitHub** (more convenient, one-time setup): create a GitHub OAuth App with callback URL `https://api.netlify.com/auth/done`, then add its client ID and secret in Netlify under *Site configuration → Access & security → OAuth → Install provider → GitHub*.
 
 ### Contact form
 Messages are forwarded by [FormSubmit](https://formsubmit.co). After the first submission FormSubmit sends an activation email to the recipient address; messages only arrive once the "Activate Form" link has been confirmed.
