@@ -46,7 +46,7 @@ function MapSection() {
     transit: { url: transitMapUrl, title: 'Bahnhof Bruchmühlbach' }
   };
 
-  const address = "Eichenhübel 14, 66892 Bruchmühlbach-Miesau, Germany";
+  const address = "Eichenhübel 12a, 66892 Bruchmühlbach-Miesau, Germany";
   const encodedAddress = encodeURIComponent(address);
 
   return (
@@ -67,7 +67,7 @@ function MapSection() {
                 <div className="location-icon"><MapPinIcon /></div>
                 <div className="location-details">
                   <h4>Adresse</h4>
-                  <p>Eichenhübel 14</p>
+                  <p>Eichenhübel 12a</p>
                   <p>66892 Bruchmühlbach-Miesau</p>
                 </div>
               </div>

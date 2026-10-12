@@ -136,7 +136,7 @@ git push origin feature/my-change
 ## 📱 Contact
 
 **Kirche Lebensfundament**
-- 📍 Eichenhübel 14, 66892 Bruchmühlbach-Miesau, Germany
+- 📍 Eichenhübel 12a, 66892 Bruchmühlbach-Miesau, Germany
 - 🕐 Sunday Service: 11:00 AM
 - 🙏 Prayer Meeting: Tuesday 6:30 PM
 - 🎸 Youth: Friday 7:00 PM

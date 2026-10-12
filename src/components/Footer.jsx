@@ -15,7 +15,7 @@ function Footer() {
 
           <div className="footer-section">
             <h4>Kontakt</h4>
-            <p>Eichenhübel 14</p>
+            <p>Eichenhübel 12a</p>
             <p>66892 Bruchmühlbach-Miesau</p>
           </div>
 
