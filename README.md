@@ -107,9 +107,6 @@ Set the environment variable **`SITE_URL`** to the public address (e.g. `https:/
 
 - **Netlify** (recommended): connect the GitHub repo; build settings, Node version and security headers come from `netlify.toml`. Without a custom domain the site runs at `<name>.netlify.app` and is hidden from search engines (`noindex`) until a real domain is set.
 - **Cloudflare Pages**: build command `npm run build`, output folder `build`
-
-### Password protection (test phase)
-`netlify/edge-functions/password.js` can lock the whole site behind a browser login. In Netlify → *Site configuration* → *Environment variables* set `SITE_PASSWORD` (and optionally `SITE_USER`, default `gemeinde`), then trigger a new deploy. Delete `SITE_PASSWORD` and redeploy to make the site public.
 - **Vercel**: `npx vercel`
 
 ## 🔒 Branch Protection
