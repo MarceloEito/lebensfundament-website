@@ -96,6 +96,9 @@ All colors, fonts, shadows and spacing are defined once as CSS variables at the 
 ### Contact form
 Messages are forwarded by [FormSubmit](https://formsubmit.co). After the first submission FormSubmit sends an activation email to the recipient address; messages only arrive once the "Activate Form" link has been confirmed.
 
+### Feedback button (test phase)
+On the Netlify test address (`*.netlify.app`) and in local development a "Feedback" button appears in the bottom right corner. Feedback is sent by email via FormSubmit, like the contact form (`src/formSubmit.js` holds the recipient for both). On the real domain the button is hidden automatically.
+
 ### Legal pages
 `public/impressum/index.html` and `public/datenschutz/index.html` contain placeholders in `[square brackets]` that must be filled in before going live. They are templates, not legal advice.
 

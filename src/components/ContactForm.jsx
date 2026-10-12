@@ -1,11 +1,6 @@
 import React, { useRef, useState } from 'react';
+import { sendForm } from '../formSubmit';
 import './ContactForm.css';
-
-// FormSubmit forwards submissions to this address. After the first
-// submission FormSubmit sends an activation email; once confirmed it also
-// offers a random alias that can replace the address here to hide it.
-// Temporary test recipient until the church has its own address.
-const FORM_ENDPOINT = 'https://formsubmit.co/ajax/marcel.eitel@gmx.net';
 
 const SUBJECT_LABELS = {
   visit: 'Besuch planen',
@@ -104,29 +99,15 @@ function ContactForm() {
     const subjectLabel = SUBJECT_LABELS[formData.subject] || formData.subject;
 
     try {
-      const response = await fetch(FORM_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
-        },
-        body: JSON.stringify({
-          Name: formData.name.trim(),
-          email: formData.email.trim(),
-          Betreff: subjectLabel,
-          Nachricht: formData.message.trim(),
-          _subject: `Website-Kontakt: ${subjectLabel} (von ${formData.name.trim()})`,
-          _template: 'table',
-          _honey: honeypot
-        })
+      await sendForm({
+        Name: formData.name.trim(),
+        email: formData.email.trim(),
+        Betreff: subjectLabel,
+        Nachricht: formData.message.trim(),
+        _subject: `Website-Kontakt: ${subjectLabel} (von ${formData.name.trim()})`,
+        _template: 'table',
+        _honey: honeypot
       });
-      const result = await response.json().catch(() => ({}));
-
-      if (!response.ok || String(result.success) !== 'true') {
-        const error = new Error(result.message || `HTTP ${response.status}`);
-        error.needsActivation = /activat/i.test(result.message || '');
-        throw error;
-      }
 
       setStatus('sent');
       setFormData(EMPTY_FORM);
