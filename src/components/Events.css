@@ -335,8 +335,9 @@
   font-size: 0.95rem;
 }
 
-/* Tablet breakpoint */
-@media (min-width: 769px) and (max-width: 1023px) {
+/* Tablets and small laptops: four columns would squeeze the day labels
+   onto two lines, so use a 2 × 2 grid until there is enough room */
+@media (min-width: 769px) and (max-width: 1279px) {
   .events-grid,
   .regular-events-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
