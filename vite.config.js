@@ -7,13 +7,13 @@ import react from '@vitejs/plugin-react';
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
   "script-src 'self'",
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "font-src 'self' https://fonts.gstatic.com",
+  "style-src 'self' 'unsafe-inline'",
+  "font-src 'self'",
   "img-src 'self' data:",
   "media-src 'self'",
   'frame-src https://www.google.com',
-  "connect-src 'self' https://formsubmit.co",
-  "form-action 'self' https://formsubmit.co",
+  "connect-src 'self'",
+  "form-action 'self'",
   "object-src 'none'",
   "base-uri 'self'"
 ].join('; ');
