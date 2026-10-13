@@ -26,6 +26,28 @@
   <body>
     <noscript>Sie müssen JavaScript aktivieren, um diese App auszuführen.</noscript>
     <div id="root"></div>
+
+    <!--
+      Netlify Forms: static copies of the React forms so Netlify detects
+      them when the site is deployed. Keep form and field names in sync
+      with ContactForm.jsx and FeedbackWidget.jsx.
+    -->
+    <form name="kontakt" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input name="name" />
+      <input name="email" />
+      <input name="betreff" />
+      <textarea name="nachricht"></textarea>
+      <input name="subject" />
+      <input name="bot-field" />
+    </form>
+    <form name="feedback" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input name="bereich" />
+      <textarea name="feedback"></textarea>
+      <input name="geraet" />
+      <input name="seite" />
+      <input name="subject" />
+      <input name="bot-field" />
+    </form>
     <script type="module" src="/src/index.jsx"></script>
   </body>
 </html>

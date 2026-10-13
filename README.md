@@ -56,7 +56,6 @@ lebensfundament-website/
 │   ├── impressum/index.html    # Impressum (static page)
 │   ├── datenschutz/index.html  # Datenschutzerklärung (static page)
 │   ├── legal.css               # Shared styles for the legal pages
-│   ├── __forms.html            # Form copies for Netlify Forms detection
 │   ├── logo.svg                # Church logo (vector) + PNG icons
 │   ├── og-image.jpg            # Link preview image (1200×630)
 │   ├── admin/                  # Admin area for event flyers (Sveltia CMS)
@@ -78,7 +77,7 @@ lebensfundament-website/
 │   ├── index.css               # Design tokens and shared styles
 │   ├── App.jsx
 │   └── index.jsx
-├── index.html                  # HTML shell, icons, share preview tags
+├── index.html                  # HTML shell, fonts, share preview tags
 ├── vite.config.js              # Build config incl. Content-Security-Policy
 └── package.json
 ```
@@ -95,7 +94,7 @@ All colors, fonts, shadows and spacing are defined once as CSS variables at the 
 - **Regular services and upcoming events**: `src/components/Events.jsx` (upcoming events are placeholders for now)
 - **Service times in the footer**: `src/components/Footer.jsx`
 - **Address, parking and station maps**: `src/components/MapSection.jsx`
-- **Contact form recipient**: Netlify → *Project configuration* → *Notifications* → *Form submission notifications* (not in the code)
+- **Contact form recipient**: Netlify → *Forms* → *Form notifications* (not in the code)
 - **Hero video**: replace `public/videos/background.mp4` (and `background-poster.jpg`)
 
 ### Event flyers (admin area)
@@ -106,9 +105,9 @@ Signing in requires write access to this GitHub repository:
 - **Sign in with GitHub** (more convenient, one-time setup): create a GitHub OAuth App with callback URL `https://api.netlify.com/auth/done`, then add its client ID and secret in Netlify under *Site configuration → Access & security → OAuth → Install provider → GitHub*.
 
 ### Contact form (Netlify Forms)
-The contact form (`kontakt`) and the feedback form (`feedback`) are handled by [Netlify Forms](https://docs.netlify.com/manage/forms/setup/). Netlify finds them through static copies in `public/__forms.html`, and the React forms send their data to that file (`src/forms.js`); keep the field names in sync with the React components. One-time setup in Netlify:
-1. *Forms* (left sidebar) → **Enable form detection**, then *Deploys* → *Trigger deploy* → *Deploy project*. Afterwards *Forms* lists `kontakt` and `feedback`.
-2. *Project configuration* → *Notifications* → *Emails and webhooks* → **Form submission notifications** → *Add notification* → *Email notification*, choose the form and enter the recipient address. Repeat for the second form.
+The contact form (`kontakt`) and the feedback form (`feedback`) are handled by [Netlify Forms](https://docs.netlify.com/forms/setup/). Netlify finds them through hidden copies in `index.html`; keep their field names in sync with the React components. One-time setup in Netlify:
+1. *Forms* → **Enable form detection**, then trigger a new deploy.
+2. *Site configuration* → *Notifications* → **Form submission notifications** → add an email notification for the forms and enter the recipient address.
 
 Submissions are also listed under *Forms* in Netlify; delete them there once they are dealt with. Forms only work on the deployed site, not in local development.
 
