@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { sendForm } from '../forms';
+import { sendForm } from '../formSubmit';
 import './FeedbackWidget.css';
 
 // Phosphor Icons (Bold), https://phosphoricons.com
@@ -45,7 +45,7 @@ function FeedbackDialog() {
   const [message, setMessage] = useState('');
   const [honeypot, setHoneypot] = useState('');
   const [error, setError] = useState('');
-  const [status, setStatus] = useState('idle'); // idle | sending | sent | error
+  const [status, setStatus] = useState('idle'); // idle | sending | sent | activation | error
   const buttonRef = useRef(null);
   const dialogRef = useRef(null);
 
@@ -81,20 +81,21 @@ function FeedbackDialog() {
     setStatus('sending');
 
     try {
-      await sendForm('feedback', {
-        bereich: area,
-        feedback: message.trim(),
-        geraet: deviceInfo(),
-        seite: window.location.href,
-        subject: `Website-Feedback: ${area}`,
-        'bot-field': honeypot
+      await sendForm({
+        Bereich: area,
+        Feedback: message.trim(),
+        Gerät: deviceInfo(),
+        Seite: window.location.href,
+        _subject: `Website-Feedback: ${area}`,
+        _template: 'table',
+        _honey: honeypot
       });
       setStatus('sent');
       setMessage('');
       setArea(AREAS[0]);
     } catch (err) {
       console.error('Feedback failed:', err.message);
-      setStatus('error');
+      setStatus(err.needsActivation ? 'activation' : 'error');
     }
   };
 
@@ -169,10 +170,10 @@ function FeedbackDialog() {
                   {error && <span className="feedback-error" id="feedback-error">{error}</span>}
                 </label>
 
-                {/* Hidden from people; Netlify rejects submissions that fill it */}
+                {/* Hidden from people; bots that fill it are rejected by FormSubmit */}
                 <input
                   type="text"
-                  name="bot-field"
+                  name="_honey"
                   className="form-honeypot"
                   tabIndex="-1"
                   autoComplete="off"
@@ -181,6 +182,12 @@ function FeedbackDialog() {
                   onChange={(e) => setHoneypot(e.target.value)}
                 />
 
+                {status === 'activation' && (
+                  <p className="feedback-status" role="alert">
+                    Das Formular ist noch nicht freigeschaltet. Bitte bestätige den Link in
+                    der E-Mail von FormSubmit und versuche es dann noch einmal.
+                  </p>
+                )}
                 {status === 'error' && (
                   <p className="feedback-status" role="alert">
                     Das hat leider nicht geklappt. Bitte versuche es später noch einmal.
@@ -191,7 +198,7 @@ function FeedbackDialog() {
                   {status === 'sending' ? 'Wird gesendet …' : 'Feedback senden'}
                 </button>
                 <p className="feedback-note">
-                  Geht an das Website-Team. Gerätetyp und
+                  Wird per E-Mail an das Website-Team geschickt. Gerätetyp und
                   Bildschirmgröße werden mitgesendet, damit wir Darstellungsfehler
                   nachvollziehen können.
                 </p>

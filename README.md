@@ -11,7 +11,7 @@ A modern, responsive website for Kirche Lebensfundament in Bruchmühlbach-Miesau
 - ✅ **Video hero** – worship video with a poster frame while it loads
 - ✅ **Events** – regular services and upcoming events in two tabs
 - ✅ **Directions** – Google Maps for the church, parking and the train station, with a public transport route
-- ✅ **Contact form** – via Netlify Forms with email notification, German validation messages
+- ✅ **Contact form** – sent by email via FormSubmit, with German validation messages
 - ✅ **Legal pages** – Impressum and Datenschutzerklärung (templates with placeholders)
 
 ## 🚀 Technologies
@@ -69,11 +69,11 @@ lebensfundament-website/
 │   │   ├── WhatToExpect.jsx    # "Über uns" section
 │   │   ├── Events.jsx          # Regular services + upcoming events
 │   │   ├── MapSection.jsx      # "Besuche uns": address, parking, train station
-│   │   ├── ContactForm.jsx     # Contact form (Netlify Forms)
+│   │   ├── ContactForm.jsx     # Contact form (FormSubmit)
 │   │   ├── Location.jsx        # Address banner
 │   │   └── Footer.jsx          # Footer with legal links
 │   ├── data/events.json        # Upcoming event flyers (edited via /admin)
-│   ├── forms.js                # Sends forms to Netlify Forms
+│   ├── formSubmit.js           # FormSubmit recipient + request helper
 │   ├── index.css               # Design tokens and shared styles
 │   ├── App.jsx
 │   └── index.jsx
@@ -94,7 +94,7 @@ All colors, fonts, shadows and spacing are defined once as CSS variables at the 
 - **Regular services and upcoming events**: `src/components/Events.jsx` (upcoming events are placeholders for now)
 - **Service times in the footer**: `src/components/Footer.jsx`
 - **Address, parking and station maps**: `src/components/MapSection.jsx`
-- **Contact form recipient**: Netlify → *Forms* → *Form notifications* (not in the code)
+- **Contact form recipient**: `FORM_ENDPOINT` in `src/formSubmit.js`
 - **Hero video**: replace `public/videos/background.mp4` (and `background-poster.jpg`)
 
 ### Event flyers (admin area)
@@ -104,15 +104,11 @@ Signing in requires write access to this GitHub repository:
 - **Access token** (works right away): on GitHub create a *fine-grained personal access token* for this repository only with *Contents: Read and write*, then choose "Sign In Using Access Token".
 - **Sign in with GitHub** (more convenient, one-time setup): create a GitHub OAuth App with callback URL `https://api.netlify.com/auth/done`, then add its client ID and secret in Netlify under *Site configuration → Access & security → OAuth → Install provider → GitHub*.
 
-### Contact form (Netlify Forms)
-The contact form (`kontakt`) and the feedback form (`feedback`) are handled by [Netlify Forms](https://docs.netlify.com/forms/setup/). Netlify finds them through hidden copies in `index.html`; keep their field names in sync with the React components. One-time setup in Netlify:
-1. *Forms* → **Enable form detection**, then trigger a new deploy.
-2. *Site configuration* → *Notifications* → **Form submission notifications** → add an email notification for the forms and enter the recipient address.
-
-Submissions are also listed under *Forms* in Netlify; delete them there once they are dealt with. Forms only work on the deployed site, not in local development.
+### Contact form
+Messages from the contact form and the feedback button are forwarded by email by [FormSubmit](https://formsubmit.co) to the address in `src/formSubmit.js`. After the first submission FormSubmit sends an activation email to that address; messages only arrive once the "Activate Form" link has been confirmed. This may be needed again when the site moves to its real domain. Until then the forms show a "noch nicht freigeschaltet" notice.
 
 ### Feedback button (test phase)
-On the Netlify test address (`*.netlify.app`) and in local development a "Feedback" button appears in the bottom right corner. Feedback goes to Netlify Forms (`feedback`) like the contact form. On the real domain the button is hidden automatically.
+On the Netlify test address (`*.netlify.app`) and in local development a "Feedback" button appears in the bottom right corner. Feedback is sent by email via FormSubmit, like the contact form (`src/formSubmit.js` holds the recipient for both). On the real domain the button is hidden automatically.
 
 ### Legal pages
 `public/impressum/index.html` and `public/datenschutz/index.html` contain placeholders in `[square brackets]` that must be filled in before going live. They are templates, not legal advice.
