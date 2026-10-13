@@ -22,13 +22,32 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Lobpreis im Gottesdienst mit dem Logo der Kirche Lebensfundament" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   </head>
   <body>
     <noscript>Sie müssen JavaScript aktivieren, um diese App auszuführen.</noscript>
     <div id="root"></div>
+
+    <!--
+      Netlify Forms: static copies of the React forms so Netlify detects
+      them when the site is deployed. Keep form and field names in sync
+      with ContactForm.jsx and FeedbackWidget.jsx.
+    -->
+    <form name="kontakt" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input name="name" />
+      <input name="email" />
+      <input name="betreff" />
+      <textarea name="nachricht"></textarea>
+      <input name="subject" />
+      <input name="bot-field" />
+    </form>
+    <form name="feedback" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input name="bereich" />
+      <textarea name="feedback"></textarea>
+      <input name="geraet" />
+      <input name="seite" />
+      <input name="subject" />
+      <input name="bot-field" />
+    </form>
     <script type="module" src="/src/index.jsx"></script>
   </body>
 </html>
