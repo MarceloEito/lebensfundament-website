@@ -155,7 +155,7 @@ git push origin feature/my-change
 - 🕐 Sunday Service: 11:00 AM
 - 🙏 Prayer Meeting: Tuesday 6:30 PM
 - 🎸 Youth: Friday 7:00 PM
-- ⚡ Teens: every other Thursday 6:00 PM
+- ⚡ Teens: Thursday 6:00 PM
 
 ## 📄 License
 

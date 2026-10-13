@@ -120,7 +120,7 @@ function Events() {
     {
       id: 4,
       title: 'Teens',
-      day: '14-tägig donnerstags',
+      day: 'Jeden Donnerstag',
       time: '18:00 Uhr',
       description: 'Für Teenager – Gemeinschaft, Spiele und biblischer Input',
       Icon: LightningIcon
