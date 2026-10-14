@@ -48,9 +48,30 @@
 .map-intro {
   font-size: 1.3rem;
   color: var(--color-footer-text);
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
   line-height: 1.6;
   font-style: italic;
+}
+
+.map-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--color-footer-text);
+}
+
+.map-hint svg {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  color: var(--color-orange-warm);
+}
+
+.map-hint-below {
+  display: none;
 }
 
 .location-cards {
@@ -63,7 +84,12 @@
 .location-card {
   display: flex;
   gap: 1.5rem;
+  width: 100%;
   padding: 1.5rem;
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
   background: rgba(255, 255, 255, 0.05);
   border-radius: var(--radius-md);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -73,18 +99,19 @@
               box-shadow var(--transition-smooth);
 }
 
-.location-card-clickable {
-  cursor: pointer;
-}
-
-.location-card-clickable:hover {
+.location-card:hover {
   background: rgba(171, 77, 19, 0.08);
   border-color: rgba(171, 77, 19, 0.3);
   transform: translateY(-3px);
   box-shadow: 0 5px 20px rgba(171, 77, 19, 0.2);
 }
 
-.location-card-clickable.active {
+.location-card:focus-visible {
+  outline: 2px solid var(--color-orange-warm);
+  outline-offset: 3px;
+}
+
+.location-card.active {
   background: rgba(171, 77, 19, 0.15);
   border-color: rgba(171, 77, 19, 0.5);
   box-shadow: 0 5px 20px rgba(171, 77, 19, 0.3);
@@ -108,22 +135,53 @@
   height: 22px;
 }
 
-.location-card-clickable.active .location-icon,
-.location-card-clickable:hover .location-icon {
+.location-card.active .location-icon,
+.location-card:hover .location-icon {
   background: rgba(171, 77, 19, 0.25);
 }
 
-.location-details h4 {
+.location-title {
+  display: block;
   font-size: 1.2rem;
   font-weight: 700;
   color: #ffffff;
   margin-bottom: 0.5rem;
 }
 
-.location-details p {
+.location-line {
+  display: block;
   font-size: 1rem;
   color: var(--color-footer-text);
   margin: 0.2rem 0;
+}
+
+.location-show {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-orange-warm);
+}
+
+.location-show svg {
+  width: 14px;
+  height: 14px;
+  transition: transform var(--transition-base);
+}
+
+.location-card:hover .location-show svg {
+  transform: translateX(3px);
+}
+
+.location-card.active .location-show {
+  color: #ffffff;
+}
+
+.location-card.active .location-show svg {
+  color: var(--color-orange-warm);
+  transform: none;
 }
 
 .route-btn {
@@ -192,6 +250,7 @@
 .map-consent-icon {
   width: 64px;
   height: 64px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -218,6 +277,11 @@
   line-height: 1.6;
 }
 
+.map-consent .map-consent-lead {
+  font-size: 1.05rem;
+  color: #fff8f2;
+}
+
 .map-consent a {
   color: var(--color-orange-warm);
 }
@@ -232,7 +296,36 @@
     padding: 3rem 2rem;
   }
 
+  /* The map is 400px high; the placeholder may grow taller */
   .map-embed {
+    min-height: 400px;
+  }
+
+  .map-embed iframe {
+    display: block;
     height: 400px;
+  }
+
+  .map-consent {
+    min-height: 400px;
+  }
+
+  .map-hint-side {
+    display: none;
+  }
+
+  .map-hint-below {
+    display: inline;
+  }
+}
+
+@media (max-width: 480px) {
+  .map-info {
+    padding: 3rem 1.5rem;
+  }
+
+  .location-card {
+    gap: 1rem;
+    padding: 1.25rem;
   }
 }
