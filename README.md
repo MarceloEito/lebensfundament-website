@@ -8,7 +8,7 @@ A modern, responsive website for Kirche Lebensfundament in Bruchmühlbach-Miesau
 
 - ✅ **Warm terracotta design** – colors taken from the church logo
 - ✅ **Fully responsive** – tested on phones (360–430 px), tablets and desktop
-- ✅ **Video hero** – worship video with a poster frame while it loads
+- ✅ **Video hero** – calm looping video of an open Bible, with a poster frame while it loads
 - ✅ **Events** – regular services and upcoming events in two tabs
 - ✅ **Directions** – Google Maps for the church, parking and the train station, with a public transport route
 - ✅ **Contact form** – sent by email via FormSubmit, with German validation messages
