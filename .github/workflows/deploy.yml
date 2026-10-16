@@ -1,0 +1,62 @@
+# Builds the website and uploads it to the webspace at all-inkl on every
+# change to main, including flyers saved in /admin. The FTP access data are
+# repository secrets (Settings → Secrets and variables → Actions):
+# FTP_SERVER (e.g. w0123456.kasserver.com), FTP_USERNAME, FTP_PASSWORD.
+name: Deploy to all-inkl
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One upload at a time; a newer change waits for the running one
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SITE_URL: https://lebensfundament.org
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+      FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+      LFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Upload to all-inkl
+        if: env.FTP_SERVER != ''
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q lftp
+          # Encrypted FTP (TLS). New JS/CSS files go up first, so a visitor
+          # never gets a page whose files are still missing. Then everything
+          # else; --delete removes files that are no longer part of the site.
+          # .well-known is left alone for Let's Encrypt.
+          lftp -c "
+            set ftp:ssl-force true
+            set ftp:ssl-protect-data true
+            set ssl:verify-certificate true
+            set net:max-retries 3
+            open --user '$FTP_USERNAME' --env-password '$FTP_SERVER'
+            mirror --reverse --parallel=4 --verbose build/assets/ ./assets/
+            mirror --reverse --delete --parallel=4 --verbose --exclude-glob .well-known/ build/ ./
+          "
+
+      - name: No upload without access data
+        if: env.FTP_SERVER == ''
+        run: echo "::warning::The secrets FTP_SERVER, FTP_USERNAME and FTP_PASSWORD are not set yet, so nothing was uploaded."

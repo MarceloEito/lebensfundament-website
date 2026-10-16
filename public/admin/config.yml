@@ -1,5 +1,6 @@
 # Sveltia CMS: event flyers for the "Kommende Events" tab.
-# Saving commits to the GitHub repository; Netlify then publishes the site.
+# Saving commits to the GitHub repository; GitHub then builds the site and
+# uploads it to all-inkl (.github/workflows/deploy.yml).
 
 backend:
   name: github
