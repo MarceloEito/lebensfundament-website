@@ -56,6 +56,7 @@ lebensfundament-website/
 │   ├── impressum/index.html    # Impressum (static page)
 │   ├── datenschutz/index.html  # Datenschutzerklärung (static page)
 │   ├── legal.css               # Shared styles for the legal pages
+│   ├── .htaccess               # Server settings at all-inkl (https, headers, caching)
 │   ├── logo.svg                # Church logo (vector) + PNG icons
 │   ├── og-image.jpg            # Link preview image (1200×630)
 │   ├── admin/                  # Admin area for event flyers (Sveltia CMS)
@@ -77,7 +78,8 @@ lebensfundament-website/
 │   ├── index.css               # Design tokens and shared styles
 │   ├── App.jsx
 │   └── index.jsx
-├── index.html                  # HTML shell, fonts, share preview tags
+├── .github/workflows/deploy.yml # Builds the site and uploads it to all-inkl
+├── index.html                  # HTML shell, icons, share preview tags
 ├── vite.config.js              # Build config incl. Content-Security-Policy
 └── package.json
 ```
@@ -98,11 +100,9 @@ All colors, fonts, shadows and spacing are defined once as CSS variables at the 
 - **Hero video**: replace `public/videos/background.mp4` (and `background-poster.jpg`)
 
 ### Event flyers (admin area)
-Flyers for the "Kommende Events" tab are managed at **`/admin`** (e.g. `https://<site>.netlify.app/admin/`) with [Sveltia CMS](https://sveltiacms.app). Add an event with a flyer image, a short title and the date; saving commits to `main`, and Netlify publishes the change within 1–2 minutes. A flyer disappears automatically after its date, and the tab is hidden while there are no upcoming flyers. Uploaded images are scaled down and converted to WebP and stored in `public/uploads/events/`; the data lives in `src/data/events.json`. Settings: `public/admin/config.yml`.
+Flyers for the "Kommende Events" tab are managed at **[`/admin`](https://lebensfundament.org/admin/)** with [Sveltia CMS](https://sveltiacms.app). Add an event with a flyer image, a short title and the date; saving commits to `main`, and the change is online within 1–2 minutes (see Deployment). A flyer disappears automatically after its date, and the tab is hidden while there are no upcoming flyers. Uploaded images are scaled down and converted to WebP and stored in `public/uploads/events/`; the data lives in `src/data/events.json`. Settings: `public/admin/config.yml`.
 
-Signing in requires write access to this GitHub repository:
-- **Access token** (works right away): on GitHub create a *fine-grained personal access token* for this repository only with *Contents: Read and write*, then choose "Sign In Using Access Token".
-- **Sign in with GitHub** (more convenient, one-time setup): create a GitHub OAuth App with callback URL `https://api.netlify.com/auth/done`, then add its client ID and secret in Netlify under *Site configuration → Access & security → OAuth → Install provider → GitHub*.
+Signing in requires write access to this GitHub repository: on GitHub create a *fine-grained personal access token* for this repository only with *Contents: Read and write*, then choose "Sign In Using Access Token". The token stays in your browser; never put it into the code.
 
 ### Contact form
 Messages from the contact form and the feedback button are forwarded by email by [FormSubmit](https://formsubmit.co) to the address in `src/formSubmit.js`. After the first submission FormSubmit sends an activation email to that address; messages only arrive once the "Activate Form" link has been confirmed. This may be needed again when the site moves to its real domain. Until then the forms show a "noch nicht freigeschaltet" notice.
@@ -111,17 +111,21 @@ Messages from the contact form and the feedback button are forwarded by email by
 On the Netlify test address (`*.netlify.app`) and in local development a "Feedback" button appears in the bottom right corner. Feedback is sent by email via FormSubmit, like the contact form (`src/formSubmit.js` holds the recipient for both). On the real domain the button is hidden automatically.
 
 ### Legal pages
-`public/impressum/index.html` and `public/datenschutz/index.html` contain placeholders in `[square brackets]` that must be filled in before going live. They are templates, not legal advice.
+`public/impressum/index.html` and `public/datenschutz/index.html` hold the church's details. Update them when the hosting, the email address or the services used change. They are not legal advice.
 
 ## 🌐 Deployment
 
-The site is a static build, so any static host works. Hosts that rebuild automatically on every push are recommended.
+The site is hosted on the webspace at **all-inkl** (lebensfundament.org). On every change to `main`, including flyers saved in `/admin`, the GitHub Actions workflow `.github/workflows/deploy.yml` builds the site and uploads it over encrypted FTP. The change is online within 1–2 minutes; progress and errors are shown under *Actions* on GitHub, where *Run workflow* also starts an upload by hand.
 
-Set the environment variable **`SITE_URL`** to the public address (e.g. `https://www.example.de`) in the hosting settings. It is used for the link preview (`og:image`, `og:url`) shown when the site is shared on WhatsApp, Signal or Facebook. Locally it can go into a `.env` file (see `.env.example`).
+One-time setup:
+1. **all-inkl (KAS):** turn on the free Let's Encrypt certificate for the domain (*Domain → edit → SSL*), then create an FTP user whose directory is the domain's folder.
+2. **GitHub:** under *Settings → Secrets and variables → Actions* add the repository secrets `FTP_SERVER` (the KAS server name, e.g. `w0123456.kasserver.com`), `FTP_USERNAME` and `FTP_PASSWORD`. Without them the workflow only builds and uploads nothing.
 
-- **Netlify** (recommended): connect the GitHub repo; build settings, Node version and security headers come from `netlify.toml`. Without a custom domain the site runs at `<name>.netlify.app` and is hidden from search engines (`noindex`) until a real domain is set.
-- **Cloudflare Pages**: build command `npm run build`, output folder `build`
-- **Vercel**: `npx vercel`
+If the FTP password is changed in the KAS, update `FTP_PASSWORD` too. The server settings (https, `www` redirect, security headers, caching) are in `public/.htaccess`.
+
+`SITE_URL` (set in the workflow) is used for the link preview (`og:image`, `og:url`) shown when the site is shared on WhatsApp, Signal or Facebook. Without it, or on a `*.netlify.app` address, the site is hidden from search engines (`noindex`). Locally it can go into a `.env` file (see `.env.example`).
+
+The site is a static build, so other hosts work as well. `netlify.toml` still holds the settings for Netlify, where the site ran during the test phase.
 
 ## 🔒 Branch Protection
 
