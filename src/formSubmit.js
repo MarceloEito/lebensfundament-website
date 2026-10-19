@@ -1,8 +1,7 @@
 // FormSubmit forwards submissions to this address. After the first
 // submission FormSubmit sends an activation email; once confirmed it also
 // offers a random alias that can replace the address here to hide it.
-// Temporary test recipient until the church has its own address.
-export const FORM_ENDPOINT = 'https://formsubmit.co/ajax/marcel.eitel@gmx.net';
+export const FORM_ENDPOINT = 'https://formsubmit.co/ajax/info@lebensfundament.org';
 
 // Sends one submission. Throws on failure; `error.needsActivation` is set
 // while FormSubmit still waits for the one-time activation of the address.
