@@ -60,6 +60,7 @@ lebensfundament-website/
 │   ├── logo.svg                # Church logo (vector) + PNG icons
 │   ├── og-image.jpg            # Link preview image (1200×630)
 │   ├── robots.txt, sitemap.xml # For search engines
+│   ├── google8ca7332cfeb69aa0.html # Google Search Console verification (keep)
 │   ├── admin/                  # Admin area for event flyers (Sveltia CMS)
 │   ├── uploads/events/         # Uploaded event flyers
 │   ├── videos/                 # Hero video + poster frame
