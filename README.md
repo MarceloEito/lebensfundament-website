@@ -118,8 +118,11 @@ On the Netlify test address (`*.netlify.app`) and in local development a "Feedba
 The site is hosted on the webspace at **all-inkl** (lebensfundament.org). On every change to `main`, including flyers saved in `/admin`, the GitHub Actions workflow `.github/workflows/deploy.yml` builds the site and uploads it over encrypted FTP. The change is online within 1–2 minutes; progress and errors are shown under *Actions* on GitHub, where *Run workflow* also starts an upload by hand.
 
 One-time setup:
-1. **all-inkl (KAS):** turn on the free Let's Encrypt certificate for the domain (*Domain → edit → SSL*), then create an FTP user whose directory is the domain's folder.
-2. **GitHub:** under *Settings → Secrets and variables → Actions* add the repository secrets `FTP_SERVER` (the KAS server name, e.g. `w0123456.kasserver.com`), `FTP_USERNAME` and `FTP_PASSWORD`. Without them the workflow only builds and uploads nothing.
+1. **all-inkl (KAS / "Technische Verwaltung"):** turn on the Let's Encrypt certificate for the domain (*Domain → edit → SSL*; in the "Privat" plan this is a paid add-on). Note the domain's folder shown in the domain list.
+2. **FTP access:** either an extra FTP user whose directory is the domain's folder, or the main FTP login from the all-inkl welcome email (it sees the whole webspace).
+3. **GitHub:** under *Settings → Secrets and variables → Actions* add the repository secrets `FTP_SERVER` (the KAS server name, e.g. `w0123456.kasserver.com`), `FTP_USERNAME` and `FTP_PASSWORD`. With the main FTP login also add `FTP_DIR`, the domain's folder (e.g. `/lebensfundament.org/`). Without these secrets the workflow only builds and uploads nothing.
+
+The upload removes old files only inside the site's `assets` and `uploads` folders, never elsewhere in the webspace.
 
 If the FTP password is changed in the KAS, update `FTP_PASSWORD` too. The server settings (https, `www` redirect, security headers, caching) are in `public/.htaccess`.
 
