@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { sendForm } from '../formSubmit';
+import { sendMessage } from '../sendMessage';
 import './ContactForm.css';
 
 const SUBJECT_LABELS = {
@@ -61,7 +61,7 @@ function ContactForm() {
   const [formData, setFormData] = useState(EMPTY_FORM);
   const [errors, setErrors] = useState({});
   const [honeypot, setHoneypot] = useState('');
-  const [status, setStatus] = useState('idle'); // idle | sending | sent | activation | error
+  const [status, setStatus] = useState('idle'); // idle | sending | sent | error
   const fieldRefs = useRef({});
 
   const handleChange = (e) => {
@@ -99,14 +99,12 @@ function ContactForm() {
     const subjectLabel = SUBJECT_LABELS[formData.subject] || formData.subject;
 
     try {
-      await sendForm({
-        Name: formData.name.trim(),
+      await sendMessage({
+        name: formData.name.trim(),
         email: formData.email.trim(),
-        Betreff: subjectLabel,
-        Nachricht: formData.message.trim(),
-        _subject: `Website-Kontakt: ${subjectLabel} (von ${formData.name.trim()})`,
-        _template: 'table',
-        _honey: honeypot
+        subject: subjectLabel,
+        message: formData.message.trim(),
+        website: honeypot
       });
 
       setStatus('sent');
@@ -114,7 +112,7 @@ function ContactForm() {
       setErrors({});
     } catch (error) {
       console.error('Contact form failed:', error.message);
-      setStatus(error.needsActivation ? 'activation' : 'error');
+      setStatus('error');
     }
   };
 
@@ -204,10 +202,10 @@ function ContactForm() {
                 {fieldError('message')}
               </div>
 
-              {/* Hidden from people; bots that fill it are rejected by FormSubmit */}
+              {/* Hidden from people; contact.php drops messages that fill it */}
               <input
                 type="text"
-                name="_honey"
+                name="website"
                 className="form-honeypot"
                 tabIndex="-1"
                 autoComplete="off"
@@ -215,14 +213,6 @@ function ContactForm() {
                 value={honeypot}
                 onChange={(e) => setHoneypot(e.target.value)}
               />
-
-              {status === 'activation' && (
-                <p className="form-error" role="alert">
-                  Das Kontaktformular ist noch nicht freigeschaltet. Wir haben eine
-                  Bestätigungs-E-Mail an die Gemeinde-Adresse geschickt. Sobald der
-                  Link darin bestätigt ist, kommen Nachrichten an.
-                </p>
-              )}
 
               {status === 'error' && (
                 <p className="form-error" role="alert">

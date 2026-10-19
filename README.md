@@ -11,7 +11,7 @@ A modern, responsive website for Kirche Lebensfundament in Bruchmühlbach-Miesau
 - ✅ **Video hero** – calm, softly blurred looping video of an open Bible, with a poster frame while it loads
 - ✅ **Events** – regular services and upcoming events in two tabs
 - ✅ **Directions** – Google Maps for the church, parking and the train station, with a public transport route
-- ✅ **Contact form** – sent by email via FormSubmit, with German validation messages
+- ✅ **Contact form** – sent by email from the site's own server, with German validation messages
 - ✅ **Legal pages** – Impressum and Datenschutzerklärung (templates with placeholders)
 
 ## 🚀 Technologies
@@ -57,6 +57,7 @@ lebensfundament-website/
 │   ├── datenschutz/index.html  # Datenschutzerklärung (static page)
 │   ├── legal.css               # Shared styles for the legal pages
 │   ├── .htaccess               # Server settings at all-inkl (https, headers, caching)
+│   ├── contact.php             # Sends contact form messages by email
 │   ├── logo.svg                # Church logo (vector) + PNG icons
 │   ├── og-image.jpg            # Link preview image (1200×630)
 │   ├── robots.txt, sitemap.xml # For search engines
@@ -72,11 +73,11 @@ lebensfundament-website/
 │   │   ├── WhatToExpect.jsx    # "Über uns" section
 │   │   ├── Events.jsx          # Regular services + upcoming events
 │   │   ├── MapSection.jsx      # "Besuche uns": address, parking, train station
-│   │   ├── ContactForm.jsx     # Contact form (FormSubmit)
+│   │   ├── ContactForm.jsx     # Contact form (sends to contact.php)
 │   │   ├── Location.jsx        # Address banner
 │   │   └── Footer.jsx          # Footer with legal links
 │   ├── data/events.json        # Upcoming event flyers (edited via /admin)
-│   ├── formSubmit.js           # FormSubmit recipient + request helper
+│   ├── sendMessage.js          # Posts the contact form to contact.php
 │   ├── index.css               # Design tokens and shared styles
 │   ├── App.jsx
 │   └── index.jsx
@@ -98,7 +99,7 @@ All colors, fonts, shadows and spacing are defined once as CSS variables at the 
 - **Regular services and upcoming events**: `src/components/Events.jsx` (upcoming events are placeholders for now)
 - **Service times in the footer**: `src/components/Footer.jsx`
 - **Address, parking and station maps**: `src/components/MapSection.jsx`
-- **Contact form recipient**: `FORM_ENDPOINT` in `src/formSubmit.js`
+- **Contact form recipient**: `RECIPIENT` in `public/contact.php`
 - **Hero video**: replace `public/videos/background.mp4` (and `background-poster.jpg`)
 
 ### Event flyers (admin area)
@@ -107,7 +108,7 @@ Flyers for the "Kommende Events" tab are managed at **[`/admin`](https://lebensf
 Signing in requires write access to this GitHub repository: on GitHub create a *fine-grained personal access token* for this repository only with *Contents: Read and write*, then choose "Sign In Using Access Token". The token stays in your browser; never put it into the code.
 
 ### Contact form
-Messages from the contact form are forwarded by email by [FormSubmit](https://formsubmit.co) to the address in `src/formSubmit.js`. After the first submission FormSubmit sends an activation email to that address; messages only arrive once the "Activate Form" link has been confirmed. This is needed again when the recipient address or the site's domain changes. Until then the form shows a "noch nicht freigeschaltet" notice.
+The contact form posts to `public/contact.php` on the webspace at all-inkl, which emails the message to `info@lebensfundament.org` (recipient and sender are set at the top of the file). No outside service is involved. The script only accepts posts from the site itself, drops messages that fill the hidden honeypot field and keeps every field on one line, so it cannot be misused to send mail elsewhere. PHP does not run in local development, so the form only works on the live site.
 
 ### Legal pages
 `public/impressum/index.html` and `public/datenschutz/index.html` hold the church's details. Update them when the hosting, the email address or the services used change. They are not legal advice.
