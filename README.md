@@ -107,10 +107,7 @@ Flyers for the "Kommende Events" tab are managed at **[`/admin`](https://lebensf
 Signing in requires write access to this GitHub repository: on GitHub create a *fine-grained personal access token* for this repository only with *Contents: Read and write*, then choose "Sign In Using Access Token". The token stays in your browser; never put it into the code.
 
 ### Contact form
-Messages from the contact form and the feedback button are forwarded by email by [FormSubmit](https://formsubmit.co) to the address in `src/formSubmit.js`. After the first submission FormSubmit sends an activation email to that address; messages only arrive once the "Activate Form" link has been confirmed. This may be needed again when the site moves to its real domain. Until then the forms show a "noch nicht freigeschaltet" notice.
-
-### Feedback button (test phase)
-On the Netlify test address (`*.netlify.app`) and in local development a "Feedback" button appears in the bottom right corner. Feedback is sent by email via FormSubmit, like the contact form (`src/formSubmit.js` holds the recipient for both). On the real domain the button is hidden automatically.
+Messages from the contact form are forwarded by email by [FormSubmit](https://formsubmit.co) to the address in `src/formSubmit.js`. After the first submission FormSubmit sends an activation email to that address; messages only arrive once the "Activate Form" link has been confirmed. This is needed again when the recipient address or the site's domain changes. Until then the form shows a "noch nicht freigeschaltet" notice.
 
 ### Legal pages
 `public/impressum/index.html` and `public/datenschutz/index.html` hold the church's details. Update them when the hosting, the email address or the services used change. They are not legal advice.
@@ -128,9 +125,9 @@ The upload removes old files only inside the site's `assets` and `uploads` folde
 
 If the FTP password is changed in the KAS, update `FTP_PASSWORD` too. The server settings (https, `www` redirect, security headers, caching) are in `public/.htaccess`.
 
-`SITE_URL` (set in the workflow) is used for the link preview (`og:image`, `og:url`) shown when the site is shared on WhatsApp, Signal or Facebook. Without it, or on a `*.netlify.app` address, the site is hidden from search engines (`noindex`). Locally it can go into a `.env` file (see `.env.example`).
+`SITE_URL` (set in the workflow) is used for the link preview (`og:image`, `og:url`) shown when the site is shared on WhatsApp, Signal or Facebook. Builds without it are hidden from search engines (`noindex`). Locally it can go into a `.env` file (see `.env.example`).
 
-The site is a static build, so other hosts work as well. `netlify.toml` still holds the settings for Netlify, where the site ran during the test phase.
+The site is a static build, so other hosts work as well.
 
 ## 🔒 Branch Protection
 
