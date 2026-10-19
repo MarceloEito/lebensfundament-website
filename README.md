@@ -59,6 +59,7 @@ lebensfundament-website/
 │   ├── .htaccess               # Server settings at all-inkl (https, headers, caching)
 │   ├── logo.svg                # Church logo (vector) + PNG icons
 │   ├── og-image.jpg            # Link preview image (1200×630)
+│   ├── robots.txt, sitemap.xml # For search engines
 │   ├── admin/                  # Admin area for event flyers (Sveltia CMS)
 │   ├── uploads/events/         # Uploaded event flyers
 │   ├── videos/                 # Hero video + poster frame

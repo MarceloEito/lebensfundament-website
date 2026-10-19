@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Pages for search engines. Impressum and Datenschutz are left out on
+     purpose: they carry noindex. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://lebensfundament.org/</loc>
+  </url>
+</urlset>
