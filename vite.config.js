@@ -12,7 +12,7 @@ const CONTENT_SECURITY_POLICY = [
   "img-src 'self' data:",
   "media-src 'self'",
   'frame-src https://www.google.com',
-  "connect-src 'self' https://formsubmit.co",
+  "connect-src 'self'",
   "form-action 'self'",
   "object-src 'none'",
   "base-uri 'self'"
