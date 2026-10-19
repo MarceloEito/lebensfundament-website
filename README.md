@@ -19,7 +19,7 @@ A modern, responsive website for Kirche Lebensfundament in Bruchmühlbach-Miesau
 - React 18 with [Vite](https://vite.dev) (requires Node.js 20.19+ or 22.12+)
 - Plain CSS with design tokens (CSS custom properties)
 - [AOS](https://michalsnik.github.io/aos/) for scroll animations
-- Fonts: EB Garamond (headings) and Inter (body text), self-hosted via [Fontsource](https://fontsource.org) – no requests to Google
+- Font: Montserrat (headings in bold, body text regular), self-hosted via [Fontsource](https://fontsource.org) – no requests to Google
 - Icons: inline SVGs from [Feather](https://feathericons.com) and [Phosphor](https://phosphoricons.com) (Bold)
 
 ## 📦 Installation

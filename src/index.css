@@ -1,7 +1,7 @@
 :root {
-  --font-heading: 'EB Garamond', Georgia, serif;
-  --font-heading-weight: 500;
-  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading-weight: 700;
+  --font-body:    'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* Brand — fixed */
   --color-orange:        #ab4d13;
@@ -203,7 +203,8 @@ code {
 
 .section-title {
   font-family: var(--font-heading);
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  /* Montserrat Bold is wide: smaller minimum so "Veranstaltungen" fits on 320–360px phones */
+  font-size: clamp(2rem, 4vw + 1rem, 4rem);
   font-weight: var(--font-heading-weight);
   margin-bottom: 1rem;
   color: var(--color-text-primary);

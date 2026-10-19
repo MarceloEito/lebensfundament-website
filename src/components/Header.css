@@ -203,4 +203,9 @@
     font-size: 1.05rem;
     letter-spacing: 1px;
   }
+
+  /* Keeps "Veranstaltungen" inside the menu on 320px phones */
+  .main-nav a {
+    font-size: 1.3rem;
+  }
 }
