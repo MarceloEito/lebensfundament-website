@@ -1,5 +1,4 @@
-# Server settings for the webspace at all-inkl (Apache). They match the
-# [[headers]] in netlify.toml.
+# Server settings for the webspace at all-inkl (Apache).
 
 # Always use https and the address without "www" (except for the
 # certificate check of Let's Encrypt)
