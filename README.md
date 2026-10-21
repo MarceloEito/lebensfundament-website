@@ -58,7 +58,7 @@ lebensfundament-website/
 │   ├── legal.css               # Shared styles for the legal pages
 │   ├── .htaccess               # Server settings at all-inkl (https, headers, caching)
 │   ├── contact.php             # Sends contact form messages by email
-│   ├── logo.svg                # Church logo (vector) + PNG icons
+│   ├── logo.svg                # Church logo (vector) + PNG icons; logo-512.png for Google
 │   ├── og-image.jpg            # Link preview image (1200×630)
 │   ├── robots.txt, sitemap.xml # For search engines
 │   ├── google8ca7332cfeb69aa0.html # Google Search Console verification (keep)
@@ -82,7 +82,7 @@ lebensfundament-website/
 │   ├── App.jsx
 │   └── index.jsx
 ├── .github/workflows/deploy.yml # Builds the site and uploads it to all-inkl
-├── index.html                  # HTML shell, icons, share preview tags
+├── index.html                  # HTML shell, icons, share preview, data for search engines
 ├── vite.config.js              # Build config incl. Content-Security-Policy
 └── package.json
 ```

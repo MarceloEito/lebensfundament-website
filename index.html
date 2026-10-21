@@ -4,11 +4,14 @@
     <meta charset="utf-8" />
     <link rel="icon" href="/logo.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48" />
+    <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#ab4d13" />
     <meta name="description" content="Kirche Lebensfundament in Bruchmühlbach-Miesau. Gottesdienst jeden Sonntag um 11 Uhr – komm wie du bist, wir freuen uns auf dich!" />
     <title>Lebensfundament - Bruchmühlbach-Miesau</title>
+    <!-- Lets Google show a large preview image next to the search result -->
+    <meta name="robots" content="max-image-preview:large" />
 
     <!-- Link preview for WhatsApp, Signal, Facebook, LinkedIn, X … -->
     <meta property="og:type" content="website" />
@@ -22,6 +25,42 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Offene Bibel auf einem Holztisch mit dem Logo und Namen der Kirche Lebensfundament" />
     <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- For search engines (schema.org): site name, logo, picture and address -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "%SITE_URL%/#website",
+            "url": "%SITE_URL%/",
+            "name": "Lebensfundament",
+            "alternateName": "Kirche Lebensfundament",
+            "inLanguage": "de-DE",
+            "publisher": { "@id": "%SITE_URL%/#organization" }
+          },
+          {
+            "@type": "Organization",
+            "@id": "%SITE_URL%/#organization",
+            "name": "Lebensfundament e.V.",
+            "alternateName": ["Kirche Lebensfundament", "Freie ev. Gemeinde Lebensfundament"],
+            "url": "%SITE_URL%/",
+            "logo": "%SITE_URL%/logo-512.png",
+            "image": "%SITE_URL%/og-image.jpg",
+            "email": "info@lebensfundament.org",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Eichenhübel 12a",
+              "postalCode": "66892",
+              "addressLocality": "Bruchmühlbach-Miesau",
+              "addressCountry": "DE"
+            },
+            "sameAs": ["https://www.instagram.com/lebensfundament_"]
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <noscript>Sie müssen JavaScript aktivieren, um diese App auszuführen.</noscript>
