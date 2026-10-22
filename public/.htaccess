@@ -21,6 +21,10 @@
   RewriteRule \.php$ - [F,L]
   # PHP settings file, not for the public
   RewriteRule (^|/)\.user\.ini$ - [F,L]
+  # No folder listings: folders without an index.html are not shown
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_FILENAME}/index.html !-f
+  RewriteRule ^ - [F,L]
 </IfModule>
 <FilesMatch "\.php$">
   LimitRequestBody 32768
@@ -35,6 +39,15 @@
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
   Header always set Strict-Transport-Security "max-age=31536000"
+  # Do not reveal the PHP version
+  Header always unset X-Powered-By
+  Header unset X-Powered-By
+
+  # Uploaded flyers are only ever shown as images: scripts inside a file
+  # (for example an SVG) must not run when it is opened directly
+  <If "%{REQUEST_URI} =~ m#^/uploads/#">
+    Header always set Content-Security-Policy "default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; frame-ancestors 'none'; sandbox"
+  </If>
 
   # Built JS/CSS files have a content hash in their name and never change.
   # Everything else (pages, video, flyers) is checked for a newer version.
