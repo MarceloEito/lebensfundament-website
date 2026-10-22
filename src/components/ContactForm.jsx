@@ -61,7 +61,7 @@ function ContactForm() {
   const [formData, setFormData] = useState(EMPTY_FORM);
   const [errors, setErrors] = useState({});
   const [honeypot, setHoneypot] = useState('');
-  const [status, setStatus] = useState('idle'); // idle | sending | sent | error
+  const [status, setStatus] = useState('idle'); // idle | sending | sent | rate | error
   const fieldRefs = useRef({});
 
   const handleChange = (e) => {
@@ -112,7 +112,7 @@ function ContactForm() {
       setErrors({});
     } catch (error) {
       console.error('Contact form failed:', error.message);
-      setStatus('error');
+      setStatus(error.message === 'rate' ? 'rate' : 'error');
     }
   };
 
@@ -213,6 +213,13 @@ function ContactForm() {
                 value={honeypot}
                 onChange={(e) => setHoneypot(e.target.value)}
               />
+
+              {status === 'rate' && (
+                <p className="form-error" role="alert">
+                  Du hast gerade schon mehrere Nachrichten geschickt. Bitte versuche
+                  es in ein paar Minuten noch einmal.
+                </p>
+              )}
 
               {status === 'error' && (
                 <p className="form-error" role="alert">
