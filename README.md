@@ -58,6 +58,7 @@ lebensfundament-website/
 │   ├── legal.css               # Shared styles for the legal pages
 │   ├── .htaccess               # Server settings at all-inkl (https, headers, caching)
 │   ├── contact.php             # Sends contact form messages by email
+│   ├── .user.ini               # PHP settings for the webspace (security hardening)
 │   ├── logo.svg                # Church logo (vector) + PNG icons; logo-512.png for Google
 │   ├── og-image.jpg            # Link preview image (1200×630)
 │   ├── robots.txt, sitemap.xml # For search engines

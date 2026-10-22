@@ -13,6 +13,19 @@
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 </IfModule>
 
+# PHP only serves the contact form, which posts small JSON messages.
+# Refuse file uploads (multipart) and large requests to PHP scripts,
+# as a partial protection against "php2shell" (CVE-2026-109618/109619).
+<IfModule mod_rewrite.c>
+  RewriteCond %{HTTP:Content-Type} ^multipart/ [NC]
+  RewriteRule \.php$ - [F,L]
+  # PHP settings file, not for the public
+  RewriteRule (^|/)\.user\.ini$ - [F,L]
+</IfModule>
+<FilesMatch "\.php$">
+  LimitRequestBody 32768
+</FilesMatch>
+
 # Security headers for every page. The main Content-Security-Policy is a
 # <meta> tag added by vite.config.js; frame-ancestors only works as a header.
 <IfModule mod_headers.c>
