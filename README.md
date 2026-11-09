@@ -11,6 +11,7 @@ A modern, responsive website for Kirche Lebensfundament in Bruchmühlbach-Miesau
 - ✅ **Video hero** – calm, softly blurred looping video of an open Bible, with a poster frame while it loads
 - ✅ **Events** – regular services and upcoming events in two tabs
 - ✅ **Directions** – Google Maps for the church, parking and the train station, with a public transport route
+- ✅ **Donations** – bank details with copy button and GiroCode, PayPal button and QR code
 - ✅ **Contact form** – sent by email from the site's own server, with German validation messages
 - ✅ **Legal pages** – Impressum and Datenschutzerklärung (templates with placeholders)
 
@@ -74,9 +75,11 @@ lebensfundament-website/
 │   │   ├── WhatToExpect.jsx    # "Über uns" section
 │   │   ├── Events.jsx          # Regular services + upcoming events
 │   │   ├── MapSection.jsx      # "Besuche uns": address, parking, train station
+│   │   ├── Donate.jsx          # "Spenden": bank details and PayPal
 │   │   ├── ContactForm.jsx     # Contact form (sends to contact.php)
 │   │   ├── Location.jsx        # Address banner
 │   │   └── Footer.jsx          # Footer with legal links
+│   ├── assets/                 # QR codes for the donation section
 │   ├── data/events.json        # Upcoming event flyers (edited via /admin)
 │   ├── sendMessage.js          # Posts the contact form to contact.php
 │   ├── index.css               # Design tokens and shared styles
@@ -110,6 +113,13 @@ Signing in requires write access to this GitHub repository: on GitHub create a *
 
 ### Contact form
 The contact form posts to `public/contact.php` on the webspace at all-inkl, which emails the message to `info@lebensfundament.org` (recipient and sender are set at the top of the file). No outside service is involved. The script only accepts JSON posts from the site itself (Origin/Referer check), drops messages that fill the hidden honeypot field and keeps every field on one line, so it cannot be misused to send mail elsewhere. It allows at most 5 messages per visitor in 10 minutes and 50 per day in total; the counter (a keyed hash of the IP address, kept for 24 hours) lives in `.contact-limits` next to the web folder. PHP does not run in local development, so the form only works on the live site.
+
+### Donations
+Bank details, PayPal link and texts are in `src/components/Donate.jsx`. The two QR codes in `src/assets/` are plain SVG files made with the [`qrcode`](https://www.npmjs.com/package/qrcode) package (error correction M, 4-module margin):
+- `paypal-qr.svg` holds the same link as the church's PayPal QR code (`PAYPAL_URL` in `Donate.jsx`).
+- `girocode.svg` is a GiroCode (EPC QR code) that banking apps read: recipient, IBAN, BIC and the reference "Spende", no amount.
+
+If the bank account or the PayPal link changes, update `Donate.jsx`, make both QR codes again and scan them with a phone before going live. The Datenschutzerklärung (section "Spenden") names PayPal and the bank transfer; keep it in step.
 
 ### Legal pages
 `public/impressum/index.html` and `public/datenschutz/index.html` hold the church's details. Update them when the hosting, the email address or the services used change. They are not legal advice.

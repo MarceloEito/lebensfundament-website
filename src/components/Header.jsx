@@ -50,6 +50,7 @@ function Header() {
             <a href="#home" onClick={() => setMenuOpen(false)}>Home</a>
             <a href="#about" onClick={() => setMenuOpen(false)}>Über uns</a>
             <a href="#events" onClick={() => setMenuOpen(false)}>Veranstaltungen</a>
+            <a href="#spenden" onClick={() => setMenuOpen(false)}>Spenden</a>
             <a href="#contact" onClick={() => setMenuOpen(false)}>Kontakt</a>
           </nav>
         </div>

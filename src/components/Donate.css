@@ -1,0 +1,349 @@
+.donate-section {
+  background: var(--color-white);
+  padding: var(--section-padding-y) var(--section-padding-x);
+  position: relative;
+  overflow: hidden;
+}
+
+.donate-section::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  width: 900px;
+  height: 900px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(171, 77, 19, 0.05) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.donate-container {
+  position: relative;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.donate-header {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 3.5rem;
+}
+
+.donate-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 1.25rem;
+  border-radius: 50%;
+  background: var(--color-orange-tint-2);
+  color: var(--color-orange);
+}
+
+.donate-badge svg {
+  width: 32px;
+  height: 32px;
+}
+
+.donate-header .section-subtitle {
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.donate-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+  align-items: stretch;
+}
+
+.donate-card {
+  display: flex;
+  flex-direction: column;
+  padding: 2.25rem clamp(1.25rem, 3vw, 2.5rem);
+  background: var(--color-orange-tint-1);
+  border: var(--border-card);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+}
+
+.donate-card-head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.donate-icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--color-orange) 0%, var(--color-orange-light) 100%);
+  color: #ffffff;
+  box-shadow: var(--shadow-btn);
+}
+
+.donate-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.donate-card-head h3 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+.donate-card-head p {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+
+/* Bank details: label above value, two columns where there is room.
+   The 1px gap shows the list background as thin dividing lines. */
+.bank-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0 0 1.75rem;
+  background: rgba(171, 77, 19, 0.15);
+  border: var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.bank-row {
+  padding: 0.8rem 1.1rem 0.85rem;
+  background: var(--color-white);
+}
+
+.bank-row-wide {
+  grid-column: 1 / -1;
+}
+
+.bank-row dt {
+  margin-bottom: 0.15rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.bank-row dd {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  overflow-wrap: anywhere;
+}
+
+.bank-row-iban {
+  background: var(--color-orange-tint-1);
+}
+
+.bank-row-iban dd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 0.75rem;
+}
+
+.iban {
+  font-size: 1.15rem;
+  font-weight: 700;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-orange);
+  overflow-wrap: normal;
+}
+
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.8rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-orange);
+  background: var(--color-orange-tint-2);
+  border: 1px solid rgba(171, 77, 19, 0.25);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background var(--transition-base), color var(--transition-base), border-color var(--transition-base);
+}
+
+.copy-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.copy-btn:hover {
+  background: var(--color-orange);
+  border-color: var(--color-orange);
+  color: #ffffff;
+}
+
+.copy-btn:focus-visible {
+  outline: 3px solid rgba(171, 77, 19, 0.35);
+  outline-offset: 2px;
+}
+
+.copy-btn.copied {
+  background: #e7f4ea;
+  border-color: #9ccaa8;
+  color: #23633a;
+}
+
+/* QR codes */
+.donate-qr {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem;
+  background: var(--color-white);
+  border: var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.donate-qr img {
+  flex: 0 0 auto;
+  width: 132px;
+  height: 132px;
+  border-radius: var(--radius-sm);
+}
+
+.donate-qr p {
+  font-size: 0.92rem;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+}
+
+.donate-qr strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-size: 0.95rem;
+  color: var(--color-text-primary);
+}
+
+/* PayPal */
+.donate-text {
+  font-size: 1.05rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  font-weight: 400;
+  margin-bottom: 1.75rem;
+}
+
+.paypal-btn {
+  width: 100%;
+}
+
+/* Both QR codes sit at the bottom of their card, level with each other */
+.donate-card > .donate-qr:last-child {
+  margin-top: auto;
+}
+
+.paypal-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.paypal-btn svg:last-child {
+  width: 16px;
+  height: 16px;
+  opacity: 0.85;
+}
+
+.donate-note {
+  margin: 0.75rem 0 1.75rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.donate-verse {
+  margin: 3.5rem auto 0;
+  max-width: 640px;
+  text-align: center;
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+.donate-verse cite {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-orange);
+}
+
+@media (max-width: 900px) {
+  .donate-grid {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 620px;
+    margin: 0 auto;
+  }
+}
+
+/* On phones a code on the same screen cannot be scanned: hide the QR codes,
+   the copy button and the PayPal button do the job there */
+@media (max-width: 640px) {
+  .donate-qr {
+    display: none;
+  }
+
+  .donate-card {
+    padding: 1.75rem 1.1rem;
+  }
+
+  .bank-details,
+  .donate-note {
+    margin-bottom: 0;
+  }
+
+  .bank-row {
+    padding: 0.75rem 0.9rem;
+  }
+
+  /* Shrink the IBAN with the screen so it always stays on one line */
+  .iban {
+    font-size: min(1.1rem, calc((100vw - 120px) / 17.5));
+  }
+}
+
+@media (max-width: 380px) {
+  .bank-details {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bank-row {
+    grid-column: 1 / -1;
+    padding: 0.75rem;
+  }
+
+  .donate-card {
+    padding: 1.75rem 0.9rem;
+  }
+
+  .iban {
+    font-size: calc((100vw - 105px) / 17.5);
+  }
+
+  .paypal-btn {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
