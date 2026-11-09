@@ -6,6 +6,7 @@ import Hero from './components/Hero';
 import WhatToExpect from './components/WhatToExpect';
 import Events from './components/Events';
 import MapSection from './components/MapSection';
+import Donate from './components/Donate';
 import ContactForm from './components/ContactForm';
 import Location from './components/Location';
 import Footer from './components/Footer';
@@ -28,6 +29,7 @@ function App() {
       <WhatToExpect />
       <Events />
       <MapSection />
+      <Donate />
       <ContactForm />
       <Location />
       <Footer />
