@@ -112,7 +112,7 @@ function Events() {
     {
       id: 3,
       title: 'Jugend',
-      day: 'Jeden Freitag',
+      day: 'Jeden Donnerstag',
       time: '19:00 Uhr',
       description: 'Für Jugendliche und junge Erwachsene',
       Icon: UsersThreeIcon
@@ -120,7 +120,7 @@ function Events() {
     {
       id: 4,
       title: 'Teens',
-      day: 'Jeden Donnerstag',
+      day: 'Jeden Freitag',
       time: '18:00 Uhr',
       description: 'Für Teenager – Gemeinschaft, Spiele und biblischer Input',
       Icon: LightningIcon
